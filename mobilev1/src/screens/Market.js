@@ -1,0 +1,199 @@
+import React, {useState} from 'react';
+import { Text, View, StyleSheet, Pressable, Image, Button, ScrollView } from 'react-native';
+//import { Icon } from 'react-native-elements';
+import players from '../data/PlayersBase';
+
+export default function Market ({navigation}){
+  const [ stateButton, setStateButton] = useState(false)
+
+  const [ searchPosition, setSearchPosition ] = useState('')
+
+  const positions = ['Goleiro', 'Defensor', 'Meia', 'Atacante']
+
+  function FilterGroup(){
+
+    const [activate, setActivate] = useState(positions[0])
+
+    return(
+      <View style={styles.filterWrapper}>
+        {positions.map((position) => {
+          if (position == searchPosition ) {
+          return <Pressable style={styles.buttonActivate} onPress={()=>{setSearchPosition(position)}}><Text style={styles.labelActivate}>{position}</Text></Pressable>}
+          else {
+            return <Pressable style={styles.buttonDisable} onPress={()=>{setSearchPosition(position)}}><Text style={styles.labelDisable}>{position}</Text></Pressable>
+          }
+        })}
+      </View>
+    )
+  }
+
+  return (
+    <View style={styles.container}>
+      
+      <View style={styles.walletWrapper}>
+        <View style={styles.spentWrapper}>
+        <Text style={{fontWeight: 'bold', color: 'white'}}>Total Gasto:</Text>
+        <Text style={{color: 'white'}}>R$ 00,00</Text>
+        </View>
+        <View style={styles.balanceWrapper}>
+        <Text style={{fontWeight: 'bold', color: 'black'}}>Saldo Restante:</Text>
+        <Text style={{marginLeft: 24}}>R$ 100,00</Text>
+        </View>      
+      </View>
+
+      {FilterGroup()}
+
+      <View style={styles.cardGroupWrapper}>
+        <ScrollView>
+          {players.filter((val)=>{
+            if(searchPosition === ''){
+              return val
+            }else if (val.position.includes(searchPosition)){
+              return val
+            }
+          }).map((player, idx)=>(
+            <View style={styles.cardWrapper}>
+              <View style={styles.cardAvatar}>
+                <Image source={{uri: player.avatarUrl}} style={{height: 80, width: 72, borderRadius: 64}} />
+              </View>
+              <View style={styles.playerInfo}>
+                <Text style={{fontWeight: 'bold'}}>{player.name}</Text>
+                <Text style={{opacity: 0.7}}>{player.position}</Text>
+                <Text style={{opacity: 0.7}}>{player.team}</Text>
+                <Text style={{fontSize: 12, fontWeight: 'bold'}}>{player.price}</Text>
+              </View>
+              <Pressable style={styles.buttonAction} onPress={() => {navigation.navigate('HomePage', player)}}>
+                <Text style={{ color: 'white', fontWeight:'bold'}}>+</Text>
+              </Pressable>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'collumn',
+    alignItems: 'center',
+    backgroundColor: '#E5E5E5'
+  },
+  filterWrapper:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderColor: 'white',
+    //borderTopWidth: 2,
+    borderBottomWidth: 2,
+    padding: 8,
+    paddingLeft: 24,
+    //marginTop: 8,
+    width: "100%",
+    height: 40,
+    backgroundColor: '#E5E5E5'
+  },
+  buttonDisable:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 12,
+    borderWidth: 2,
+    borderRadius: 40,
+    borderColor: 'white',
+    width: 70,
+    height: 24,
+    backgroundColor: 'white'
+  },
+  buttonActivate:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 12,
+    borderWidth: 2,
+    borderRadius: 40,
+    borderColor: 'white',
+    width: 70,
+    height: 24,
+    backgroundColor: '#03113C'
+  },
+  labelDisable:{
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#03113C'
+  },
+  labelActivate:{
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'white'
+  },
+  cardGroupWrapper:{
+    alignItems: 'center',
+    height: '100%',
+    width: '96%',
+    marginTop: 16,
+    //backgroundColor: 'white'
+  },
+  cardWrapper: {
+    flexDirection: 'row',
+    paddingHorizontal: 8,
+    alignItems: 'center',
+    height: 96,
+    width: 336,
+    marginBottom: 8,
+    borderWidth: 2,
+    borderColor: '#03113C',
+    borderRadius: 16,
+  },
+  cardAvatar:{
+    flex: 2,
+    alignItems: 'center',
+  },
+  playerInfo: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonAction: {
+    flex: 1,
+    height: 24,
+    borderRadius:  16,
+    backgroundColor: 'green',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  walletWrapper:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    //borderTopWidth: 2,
+    borderBottomWidth: 2,
+    padding: 8,
+    paddingLeft: 24,
+    marginTop: 16,
+    width: "100%",
+    height: 64,
+    backgroundColor: '#E5E5E5'
+  },
+  spentWrapper:{
+    marginLeft: 120,
+    backgroundColor: '#03113C', 
+    height: 40, width: '40%', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    borderWidth: 2, 
+    borderColor: 'white', 
+    borderRadius: 25,
+    zIndex: 2},
+  balanceWrapper:{
+    position: 'absolute',
+    backgroundColor: '#e5e5e5', 
+    height: 40, width: '78%', 
+    justifyContent: 'center', 
+    alignItems: 'start',
+    paddingLeft: 16, 
+    borderWidth: 2, 
+    borderColor: 'white', 
+    borderRadius: 25,
+    //opacity: 0.5
+  },
+});
