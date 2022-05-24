@@ -22,10 +22,10 @@ export function AuthProvider ({ children }){
 
   async function signUp (dataForm){
     setUserLog({
-    id: '1022r730',
+    id: Math.random(),
     name: dataForm.name,
-    mail: 'developer@reactnative.com',
-    password: 'nvuf9bo1b29r28gb',
+    mail: dataForm.mail,
+    password: dataForm.password,
     avatarUrl: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png',
     })
     await AsyncStorage.setItem('@storage_User', JSON.stringify(userLog))
@@ -35,7 +35,6 @@ export function AuthProvider ({ children }){
     AsyncStorage.clear().then(() =>{
       setUserLog(null)
     })
-    {/*utilizar metodo clear .then(() => {setUserLog(null)})*/}
   }
 
   return(

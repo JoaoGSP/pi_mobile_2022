@@ -22,8 +22,13 @@ return (
     <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
     style={styles.container}>    
-        {/*User avatar*/}
-        <View style={{ alignItems: 'center'}}>
+        
+
+        {/*Outside wrapper component*/}
+        <View style={styles.formWrapperOutside}>
+
+          {/*User avatar*/}
+        <View style={{ alignItems: 'center', backgroundColor: 'white', borderRadius: 90}}>
         <Image
           style={styles.avatarStyle}
           source={{
@@ -31,26 +36,23 @@ return (
             }}
             />
         </View>
-
-        {/*Outside wrapper component*/}
-        <View style={styles.formWrapperOutside}>
           <Text
             style={{
               color: '#03113c',
               fontWeight: 'bold',
               fontSize: 24,
-              marginRight: 16,
+              textAlign:'center'
             }}>
             {userLog.name}
           </Text>
-          <Icon name="edit" size={32} color="#03113c" />
+         
         </View>
 
         {/*Inside wrapper component*/}
         <View style={styles.formWrapperInside}>
           <Text style={styles.inputTitle}>Alterar nome:</Text>
           <View style={styles.inputWrapper}>
-            <IconFA name="key" size={16} color="white" style={styles.icons} />
+            <Icon name="tago" size={16} color="white" style={styles.icons} />
             <TextInput
               style={styles.inputField}
               placeholder="Insira o novo nome..."
@@ -60,7 +62,7 @@ return (
           </View>
           <Text style={styles.inputTitle}>Novo Email:</Text>
           <View style={styles.inputWrapper}>
-            <IconFA name="key" size={16} color="white" style={styles.icons} />
+          <Icon name="mail" size={16} color="white" style={styles.icons} />
             <TextInput
               style={styles.inputField}
               placeholder="Insira o seu email..."
@@ -70,7 +72,7 @@ return (
           </View>
           <Text style={styles.inputTitle}>Confirme o Novo Email:</Text>
           <View style={styles.inputWrapper}>
-            <Icon name="mail" size={16} color="white" style={styles.icons} />
+          <Icon name="mail" size={16} color="white" style={styles.icons} />
             <TextInput
               style={styles.inputField}
               placeholder="Confirme o email inserido"
@@ -79,7 +81,7 @@ return (
           </View>
           <Text style={styles.inputTitle}>Nova Senha</Text>
           <View style={styles.inputWrapper}>
-            <Icon name="lock" size={16} color="white" style={styles.icons} />
+          <Icon name="unlock" size={16} color="white" style={styles.icons} />
             <TextInput
               style={styles.inputField}
               placeholder="Digite a nova senha..."
@@ -88,7 +90,7 @@ return (
           </View>
           <Text style={styles.inputTitle}>Confirme a Nova Senha</Text>
           <View style={styles.inputWrapper}>
-            <Icon name="lock" size={16} color="white" style={styles.icons} />
+            <Icon name="lock1" size={16} color="white" style={styles.icons} />
             <TextInput
               style={styles.inputField}
               placeholder="Digite sua senha novamente"
@@ -131,18 +133,18 @@ const styles = StyleSheet.create({
   formWrapperOutside: {
     position: 'absolute',
     width: 370,
-    height: 258,
-    flexDirection: 'row',
-    backgroundColor: '#03113c',
+    height: 500,
+    //flexDirection: 'row',
+    backgroundColor: '#5B6585',
     //borderTopWidth: 30,
     //borderLeftWidth: 10,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    marginTop: 216,
+    marginTop: 32,
     //marginLeft: 170,
-    paddingTop: 8,
-    justifyContent: 'center',
-    opacity: 0.5,
+    paddingTop: 16,
+    alignItems: 'center',
+    //opacity: 0.5,
     zIndex: 3,
     //marginBottom: 56
   },
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 25,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    marginTop: 88,
+    marginTop: 270,
     //position: 'absolute',
     zIndex: 4,
     //marginBottom: 56

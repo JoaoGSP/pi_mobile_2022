@@ -10,57 +10,54 @@ import {
   Button,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/AntDesign'
 import MarketContext from '../contexts/marketContext';
 import AuthContext from '../contexts/auth';
 
-//import { Icon } from 'react-native-elements';
-//import playersVoid from '../data/PlayersDraft';
 
 export default function HomePage(props) {
-  
   const {state, dispatch} = useContext(MarketContext);
-  const {userLog, signOut} = useContext(AuthContext)
+  const {userLog, signOut} = useContext(AuthContext);
 
-  function marketRedirect(leng){
-      {while (leng < 11) {
-          return(<Pressable
-                style={styles.buttonAction}
-                onPress={() => props.navigation.navigate('Market')}>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>+</Text>
-          </Pressable>
-          )
-      }}
-  }
-  //const { playerData, playerInfo, fillInfo, providePlayer } = useContext(MarketContext)
-
-  //const [debug, setDebug] = useState(props.route.params ? props.route.params : {})
-
-  //console.log(debug.name)
-
-  //!route.params === {} ? console.log('nada') : providePlayer(route.params)
-
-  //fillInfo(playerData)
-
-  //console.warn(playerInfo)
-
-  //console.log(playerData)
-
-  //console.log(playerInfo)
-
-  //if (route.params === {}){
-  //  setPlayerInfo(player)
-  //}else {
-  //  setPlayerInfo(route.params)
-  //}
-  //playerData = route.params ? route.params : player
-
-  /*state.PlayersDraft.length === 11 ? 
-          Alert.alert('Time completo', 'Seu time está cheio', [
-            {text: 'Ok'},{ text: 'Ok tbm'}
-          ]) :*/
+  function marketRedirect(leng) {
+    {
+      if (leng === 0) {
+        return (
+          <View style={{backgroundColor: '#DED9D9', padding: 16, borderWidth: 2,
+          borderColor: 'black', borderRadius: 16, borderColor: '#4D4D4D'}}>
+            <View>
+              <Text style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>Ops!</Text>
+              <Text style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>Parece que você ainda não tem ninguem no seu time.</Text>
+              <Text style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>Vamos as compras?</Text>
+            </View>
+            <Pressable
+              style={{
+                height: 75, width: 75, 
+                marginTop: 16, alignSelf: 'center', 
+                alignItems: 'center',
+                justifyContent: 'center'}}
+              onPress={() => props.navigation.navigate('Market')}>
+              <Icon name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
+            </Pressable>
+          </View>)        
+      } if (leng > 0 && leng < 11) {
+        return (
+            <Pressable
+              style={{
+                height: 75, width: 75,  alignSelf: 'center', 
+                alignItems: 'center', paddingTop: 16}}
+              onPress={() => props.navigation.navigate('Market')}>
+              <Icon name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
+            </Pressable>
+        )  
+      }
+      }
+    }
+  
 
   return (
     <View style={styles.container}>
+      
       {/*Componente carteira*/}
       <View style={styles.walletWrapper}>
         <View style={styles.spentWrapper}>
@@ -75,15 +72,19 @@ export default function HomePage(props) {
         </View>
       </View>
 
-      <Button title='editar perfil' onPress={()=>{props.navigation.navigate('EditProfile')}}></Button>
+      <Button
+        title="editar perfil"
+        onPress={() => {
+          props.navigation.navigate('EditProfile');
+        }}></Button>
 
-      <Button title='sair' onPress={() => signOut()}></Button>
-
+      <Button title="sair" onPress={() => signOut()}></Button>
+  
       {/*Renderização de time*/}
       <View style={styles.cardGroupWrapper}>
         <ScrollView>
           {marketRedirect(state.PlayersDraft.length)}
-          
+
           {state.PlayersDraft.map((playerSelected, idx) => (
             <View style={styles.cardWrapper} key={idx}>
               <View style={styles.cardAvatar}>
@@ -108,16 +109,18 @@ export default function HomePage(props) {
                   style={{fontSize: 12, fontWeight: 'bold', color: '#03113C'}}>
                   {playerSelected.price}
                 </Text>
-              </View> 
+              </View>
               <Pressable
                 style={styles.buttonAction}
-                onPress={() => dispatch({
-                  type: 'sellPlayer',
-                  payload: playerSelected
-                })}>
+                onPress={() =>
+                  dispatch({
+                    type: 'sellPlayer',
+                    payload: playerSelected,
+                  })
+                }>
                 <Text style={{color: 'white', fontWeight: 'bold'}}>-</Text>
               </Pressable>
-          </View>
+            </View>
           ))}
         </ScrollView>
       </View>
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
   },
   cardGroupWrapper: {
     alignItems: 'center',
-    height: '100%',
+    height: '80%',
     width: '96%',
     marginTop: 16,
     //backgroundColor: 'white'

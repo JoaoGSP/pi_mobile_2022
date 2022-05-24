@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -14,18 +14,14 @@ import MarketContext from '../contexts/marketContext';
 //import players from '../data/PlayersBase';
 
 export default function Market({navigation}) {
-
-  const {state, dispatch} = useContext(MarketContext)
-
-  const [stateButton, setStateButton] = useState(false);
+  const {state, dispatch} = useContext(MarketContext);
 
   const [searchPosition, setSearchPosition] = useState('');
 
   const positions = ['Goleiro', 'Defensor', 'Meia', 'Atacante'];
 
+  //    const [activate, setActivate] = useState(positions[0]);
   function FilterGroup() {
-    const [activate, setActivate] = useState(positions[0]);
-
     return (
       <View style={styles.filterWrapper}>
         {positions.map((position, idx) => {
@@ -35,7 +31,7 @@ export default function Market({navigation}) {
                 key={idx}
                 style={styles.buttonActivate}
                 onPress={() => {
-                  setSearchPosition(position)
+                  setSearchPosition(position);
                 }}>
                 <Text style={styles.labelActivate}>{position}</Text>
               </Pressable>
@@ -57,12 +53,12 @@ export default function Market({navigation}) {
     );
   }
 
-  function BuyPlayer(tp, data, nav){
-      dispatch({
-        type: tp,
-        payload: data
-      })
-      navigation.navigate(nav)
+  function BuyPlayer(tp, data, nav) {
+    dispatch({
+      type: tp,
+      payload: data,
+    });
+    navigation.navigate(nav);
   }
 
   return (
@@ -84,37 +80,44 @@ export default function Market({navigation}) {
 
       <View style={styles.cardGroupWrapper}>
         <ScrollView>
-          {state.PlayersBase
-            .filter(val => {
-              if (searchPosition === '') {
-                return val;
-              } else if (val.position.includes(searchPosition)) {
-                return val;
-              }
-            })
-            .map((player, idx) => (
-              <View key={idx} style={styles.cardWrapper}>
-                <View style={styles.cardAvatar}>
-                  <Image
-                    source={{uri: player.avatarUrl}}
-                    style={{height: 80, width: 72, borderRadius: 64}}
-                  />
-                </View>
-                <View style={styles.playerInfo}>
-                  <Text style={{fontWeight: 'bold', color:'#03113C'}}>{player.name}</Text>
-                  <Text style={{opacity: 0.7, color:'#03113C'}}>{player.position}</Text>
-                  <Text style={{opacity: 0.7, color:'#03113C'}}>{player.team}</Text>
-                  <Text style={{fontSize: 12, fontWeight: 'bold', color:'#03113C'}}>
-                    {player.price}
-                  </Text>
-                </View>
-                <Pressable
-                  style={styles.buttonAction}
-                  onPress={() => {BuyPlayer('buyPlayer', player, 'HomePage')}}>
-                  <Text style={{color: 'white', fontWeight: 'bold'}}>+</Text>
-                </Pressable>
+          {state.PlayersBase.filter(val => {
+            if (searchPosition === '') {
+              return val;
+            } else if (val.position.includes(searchPosition)) {
+              return val;
+            }
+          }).map((player, idx) => (
+            <View key={idx} style={styles.cardWrapper}>
+              <View style={styles.cardAvatar}>
+                <Image
+                  source={{uri: player.avatarUrl}}
+                  style={{height: 80, width: 72, borderRadius: 64}}
+                />
               </View>
-            ))}
+              <View style={styles.playerInfo}>
+                <Text style={{fontWeight: 'bold', color: '#03113C'}}>
+                  {player.name}
+                </Text>
+                <Text style={{opacity: 0.7, color: '#03113C'}}>
+                  {player.position}
+                </Text>
+                <Text style={{opacity: 0.7, color: '#03113C'}}>
+                  {player.team}
+                </Text>
+                <Text
+                  style={{fontSize: 12, fontWeight: 'bold', color: '#03113C'}}>
+                  R$ {player.price},00
+                </Text>
+              </View>
+              <Pressable
+                style={styles.buttonAction}
+                onPress={() => {
+                  BuyPlayer('buyPlayer', player, 'HomePage');
+                }}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>+</Text>
+              </Pressable>
+            </View>
+          ))}
         </ScrollView>
       </View>
     </View>
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
   },
   cardGroupWrapper: {
     alignItems: 'center',
-    height: '100%',
+    height: '80%',
     width: '96%',
     marginTop: 16,
     //backgroundColor: 'white'
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
   playerInfo: {
     flex: 3,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonAction: {
     flex: 1,
@@ -225,7 +228,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginLeft: 128,
     backgroundColor: '#03113C',
-    height: 48, width: '40%',
+    height: 48,
+    width: '40%',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
@@ -237,7 +241,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     position: 'absolute',
     backgroundColor: '#e5e5e5',
-    height: 48, width: '78%',
+    height: 48,
+    width: '78%',
     justifyContent: 'center',
     alignItems: 'flex-start',
     paddingLeft: 16,
