@@ -19,6 +19,8 @@ target 'mobilev1' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'mobilev1Tests' do
     inherit! :complete
     # Pods for testing

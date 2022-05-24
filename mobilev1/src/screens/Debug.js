@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Image, View, ActivityIndicator  } from 'react-native';
+import { StyleSheet, Image, View, ActivityIndicator, Text  } from 'react-native';
 
-export const Splash = () => {
+export const Debug = () => {
     return (
         <>
             <View
@@ -12,6 +12,7 @@ export const Splash = () => {
                     backgroundColor: '#E5E5E5',
                 }}>
                 <Image style={styles.image} source={require("../assets/Logo.png")} />
+                <Text>Debugging</Text>
                 <ActivityIndicator size="large"/> 
             </View>
         </>

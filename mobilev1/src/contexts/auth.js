@@ -1,24 +1,45 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AuthContextData = {
-  signed: true,
-  user: {} | null,
-  signIn(){
-  }
-}
 
-const AuthContext = createContext({AuthContextData})
+const AuthContext = createContext({})
 
 export function AuthProvider ({ children }){
+  //const [signed, setSignOut] = useState(false)
+  const [userLog, setUserLog] = useState(null)
 
-  const [ user, setUser ] = useState({} | null)
+  useEffect(() =>{
+    async function loadStoragedData () {
+      const storagedUser = await AsyncStorage.getItem('@storage_User')
+      //Verificando se há usuário logado
+      if(storagedUser){
+        setUserLog(JSON.parse(storagedUser))
+      }
+    }
 
-  function signIn (){
-    setUser({nome: 'João'})
+    loadStoragedData()
+  }, [])
+
+  async function signUp (dataForm){
+    setUserLog({
+    id: '1022r730',
+    name: dataForm.name,
+    mail: 'developer@reactnative.com',
+    password: 'nvuf9bo1b29r28gb',
+    avatarUrl: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png',
+    })
+    await AsyncStorage.setItem('@storage_User', JSON.stringify(userLog))
+
+  }
+  function signOut (){
+    AsyncStorage.clear().then(() =>{
+      setUserLog(null)
+    })
+    {/*utilizar metodo clear .then(() => {setUserLog(null)})*/}
   }
 
   return(
-  <AuthContext.Provider value={{signed: !!user , user, signIn}}>
+  <AuthContext.Provider value={{signed: !!userLog, userLog, signUp, signOut}}>
     {children}
   </AuthContext.Provider>
   )

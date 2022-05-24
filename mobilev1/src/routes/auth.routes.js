@@ -6,15 +6,18 @@ import LoginPage from '../screens/LoginPage'
 import RegisterPage from '../screens/RegisterPage'
 
 {/*Debug*/}
-import HomePage from '../screens/HomePage'
+//import { Debug } from '../screens/Debug'
+//import HomePage from '../screens/HomePage'
+
+//<AuthStack.Screen name='Debug' component={Debug} />
 
 const AuthStack = createNativeStackNavigator()
 
 export default function AuthRoutes (){
   return(
-  <AuthStack.Navigator>
+  <AuthStack.Navigator initialRouteName='LandingPage' screenOptions={{headerShown: false}} >
     <AuthStack.Screen name='LandingPage' component={LandingPage}/>
+    <AuthStack.Screen name='RegisterPage' component={RegisterPage } />
     <AuthStack.Screen name='LoginPage' component={LoginPage}/>
-    <AuthStack.Screen name='RegisterPage' component={RegisterPage}/>
   </AuthStack.Navigator>
 )}
