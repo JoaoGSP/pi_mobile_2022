@@ -9,13 +9,26 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
+import RegularButton from '../components/RegularButton';
+
 import Icon from 'react-native-vector-icons/AntDesign'
 
 import AuthContext from '../contexts/auth';
 
 export default function LoginPage({navigation}) {
-  const {signIn} = useContext(AuthContext);
-  const [dataForm, setDataForm] = useState({email: '', password: ''})
+  const { signIn } = useContext(AuthContext);
+  const [ dataForm, setDataForm ] = useState({email: '', password: ''})
+  const [ isFocused, setIsFocused ] = useState(false)
+  const [ isFilled, setIsFilled ] = useState(false)
+
+  function handleInputFocus(){
+    setIsFocused(true)
+  }
+  function handleInputBlur(){
+    setIsFocused(false)
+    //setIsFilled()
+  }
+
 
   return (
     <KeyboardAvoidingView
@@ -30,21 +43,26 @@ export default function LoginPage({navigation}) {
       {/*Component who wrap the inside part of input field*/}
       <View style={styles.insideComponent_FormWrapper}>
         <Text style={styles.inputTitle}>Email:</Text>
-        <View style={styles.inputWrapper}>
-          <Icon name="mail" size={16} color='white' style={styles.iconField}/>
+        <View style={isFocused ? styles.inputWrapperFocused : styles.inputWrapperStatic}>
+          <Icon name="mail" size={16} color={isFocused ? '#6DECF2':'#C4C4C4'} style={styles.iconField}/>
           <TextInput
             style={styles.inputField}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             onChangeText={email => setDataForm({...dataForm, email})}
             keyboardType='email-address'
-            //value={email}
+            autoCapitalize='none'
+            //value={value}
             placeholder="Insira o seu email..."
           />
         </View>
-        <Text style={styles.inputTitle}>Senha</Text>
-        <View style={styles.inputWrapper}>
-          <Icon name="lock1" size={16} color='white' style={styles.iconField}/>
+        <Text style={styles.inputTitle}>Senha:</Text>
+        <View style={isFocused ? styles.inputWrapperFocused : styles.inputWrapperStatic}>
+          <Icon name="lock1" size={16} color={isFocused ? '#6DECF2':'#C4C4C4'} style={styles.iconField}/>
           <TextInput
             style={styles.inputField}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             onChangeText={password => setDataForm({...dataForm, password})}
             secureTextEntry={true}
             //value={password}
@@ -81,13 +99,7 @@ export default function LoginPage({navigation}) {
       */}
 
       <View style={{alignItems: 'center', paddingTop: 144}}>
-        <Pressable
-          style={styles.submitButton}
-          title="Logar"
-          onPress={()=>signIn(dataForm)}>
-          <Text style={{color: 'black'}}>Logar</Text>
-          <Icon name="rocket1" size={16} color='black' style={{padding:2}}/>
-        </Pressable>
+        <RegularButton title='Logar' iconName='rocket1' param={dataForm} func={signIn}/>
       </View>
     </KeyboardAvoidingView>
   );
@@ -159,31 +171,32 @@ const styles = StyleSheet.create({
     marginTop: 8,
     color: 'white',
   },
-  inputWrapper: {
+  inputWrapperStatic: {
     width: 324,
     height: 44,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#03113c',
     opacity: 0.5,
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 16,
+    borderBottomWidth: 2,
+    borderColor: '#C4C4C4',
+  },
+  inputWrapperFocused: {
+    width: 324,
+    height: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+    backgroundColor: '#03113c',
+    opacity: 0.5,
+    borderBottomWidth: 2,
+    borderColor: '#6DECF2',
   },
   inputField: {
     padding: 10,
   },
   iconField: {
     paddingLeft: 16,
-  },
-  submitButton: {
-    width: 200,
-    height: 52,
-    borderWidth: 2,
-    borderColor: '#03113c',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
