@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 import React, {useContext, useEffect, useState} from 'react';
 import {
   Text,
@@ -17,7 +19,9 @@ import AuthContext from '../contexts/auth';
 
 export default function HomePage(props) {
   const {state, dispatch} = useContext(MarketContext);
-  const {userLog, signOut} = useContext(AuthContext);
+  const {userLog, signed, signOut} = useContext(AuthContext);
+
+  console.warn(signed)
 
   function marketRedirect(leng) {
     {
@@ -58,6 +62,27 @@ export default function HomePage(props) {
   return (
     <View style={styles.container}>
       
+      <View style={{
+        //position: 'absolute',
+        //marginTop: 16,
+        borderWidth: 2,
+        borderRadius: 40,
+        width: 100,
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+      }}>
+        <Pressable onPress={() => {
+          props.navigation.navigate('EditProfile');
+        }}>
+          <Icon name='closecircle' size={25} ></Icon>
+          </Pressable>
+          <Pressable onPress={() => signOut()}>
+          <Icon name='closecircleo' size={25}></Icon>
+          </Pressable>  
+      </View>
+
       {/*Componente carteira*/}
       <View style={styles.walletWrapper}>
         <View style={styles.spentWrapper}>
@@ -72,14 +97,7 @@ export default function HomePage(props) {
         </View>
       </View>
 
-      <Button
-        title="editar perfil"
-        onPress={() => {
-          props.navigation.navigate('EditProfile');
-        }}></Button>
-
-      <Button title="sair" onPress={() => signOut()}></Button>
-  
+      
       {/*Renderização de time*/}
       <View style={styles.cardGroupWrapper}>
         <ScrollView>

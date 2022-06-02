@@ -16,7 +16,7 @@ import {default as IconFA} from 'react-native-vector-icons/FontAwesome';
 //import LogsButton from '../components/Button';
 
 export default function EditProfile() {
-    const {userLog, signUp} = useContext(AuthContext);
+    const {userLog, signed, signUp} = useContext(AuthContext);
     const [dataForm, setDataForm] = useState({})
 return (
     <KeyboardAvoidingView
@@ -43,31 +43,21 @@ return (
               fontSize: 24,
               textAlign:'center'
             }}>
-            {userLog.name}
+              Qualquer coisa
           </Text>
          
         </View>
 
         {/*Inside wrapper component*/}
         <View style={styles.formWrapperInside}>
-          <Text style={styles.inputTitle}>Alterar nome:</Text>
-          <View style={styles.inputWrapper}>
-            <Icon name="tago" size={16} color="white" style={styles.icons} />
-            <TextInput
-              style={styles.inputField}
-              placeholder="Insira o novo nome..."
-              onChangeText={name => setDataForm({...userLog, name})}
-              //value={userLog.name}
-            />
-          </View>
           <Text style={styles.inputTitle}>Novo Email:</Text>
           <View style={styles.inputWrapper}>
           <Icon name="mail" size={16} color="white" style={styles.icons} />
             <TextInput
               style={styles.inputField}
               placeholder="Insira o seu email..."
-              onChangeText={mail => setDataForm({...userLog, mail})}
-              defaultValue={userLog.mail}
+              onChangeText={email => setDataForm({...userLog, email})}
+              defaultValue={userLog.email}
             />
           </View>
           <Text style={styles.inputTitle}>Confirme o Novo Email:</Text>

@@ -14,8 +14,8 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import AuthContext from '../contexts/auth';
 
 export default function LoginPage({navigation}) {
-  const {userLog, signUp} = useContext(AuthContext);
-  const [dataForm, setDataForm] = useState({})
+  const {signIn} = useContext(AuthContext);
+  const [dataForm, setDataForm] = useState({email: '', password: ''})
 
   return (
     <KeyboardAvoidingView
@@ -34,9 +34,9 @@ export default function LoginPage({navigation}) {
           <Icon name="mail" size={16} color='white' style={styles.iconField}/>
           <TextInput
             style={styles.inputField}
-            onChangeText={mail => setDataForm({...userLog, mail})}
+            onChangeText={email => setDataForm({...dataForm, email})}
             keyboardType='email-address'
-            //value={userLog.mail}
+            //value={email}
             placeholder="Insira o seu email..."
           />
         </View>
@@ -45,9 +45,9 @@ export default function LoginPage({navigation}) {
           <Icon name="lock1" size={16} color='white' style={styles.iconField}/>
           <TextInput
             style={styles.inputField}
-            onChangeText={password => setDataForm({...userLog, password})}
+            onChangeText={password => setDataForm({...dataForm, password})}
             secureTextEntry={true}
-            //value={userLog.password}
+            //value={password}
             placeholder="Digite sua senha..."
           />
         </View>
@@ -84,7 +84,7 @@ export default function LoginPage({navigation}) {
         <Pressable
           style={styles.submitButton}
           title="Logar"
-          onPress={()=> signUp(dataForm)}>
+          onPress={()=>signIn(dataForm)}>
           <Text style={{color: 'black'}}>Logar</Text>
           <Icon name="rocket1" size={16} color='black' style={{padding:2}}/>
         </Pressable>

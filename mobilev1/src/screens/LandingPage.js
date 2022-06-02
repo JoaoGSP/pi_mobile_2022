@@ -13,7 +13,9 @@ export default function LandingPage({navigation}) {
         <View>
           <Pressable
             style={styles.logButton}
-            onPress={() => navigation.navigate('LoginPage')}>
+            onPress={() => {}
+            //navigation.navigate('LoginPage')
+            }>
             <Text style={{color: 'black'}}>Fazer Login</Text>
             <Icon name="rocket1" size={16} color='black' style={{padding:2}}/>
           </Pressable>
@@ -21,7 +23,9 @@ export default function LandingPage({navigation}) {
         <View style={{paddingTop: 40}}>
           <Pressable
             style={styles.logButton}
-            onPress={() => navigation.navigate('RegisterPage')}>
+            onPress={() => {}
+            //navigation.navigate('RegisterPage')
+            }>
             <Text style={{color: 'black'}}>Registrar-se</Text>
             <Icon name="save" size={16} color='black' style={{padding:2}}/>
           </Pressable>
