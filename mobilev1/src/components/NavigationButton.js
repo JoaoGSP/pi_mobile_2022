@@ -4,8 +4,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function NavigationButton(props) {
   return (
-    <Pressable key={props.key}
-      onPress={()=>{props.func(props.routeName)}}
+    <Pressable
+      key={props.key}
+      onPress={() => {
+        props.func(props.routeName);
+      }}
       style={({pressed}) => [
         pressed ? styles.logButtonPressed : styles.logButtonStatic,
       ]}>
@@ -17,7 +20,7 @@ export default function NavigationButton(props) {
                 name={props.iconName}
                 size={16}
                 style={styles.textButtonPressed}
-              />
+              />,
             ]
           : [
               <Text style={styles.textButtonStatic}>{props.title}</Text>,
@@ -25,7 +28,7 @@ export default function NavigationButton(props) {
                 name={props.iconName}
                 size={16}
                 style={styles.textButtonStatic}
-              />
+              />,
             ]
       }
     </Pressable>

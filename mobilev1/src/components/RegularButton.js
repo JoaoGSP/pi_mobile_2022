@@ -5,7 +5,9 @@ import Icon from 'react-native-vector-icons/AntDesign';
 export default function RegularButton(props) {
   return (
     <Pressable
-      onPress={()=>{props.func(props.param)}}
+      onPress={() => {
+        props.func(props.param);
+      }}
       style={({pressed}) => [
         pressed ? styles.logButtonPressed : styles.logButtonStatic,
       ]}>
@@ -17,7 +19,7 @@ export default function RegularButton(props) {
                 name={props.iconName}
                 size={16}
                 style={styles.textButtonPressed}
-              />
+              />,
             ]
           : [
               <Text style={styles.textButtonStatic}>{props.title}</Text>,
@@ -25,7 +27,7 @@ export default function RegularButton(props) {
                 name={props.iconName}
                 size={16}
                 style={styles.textButtonStatic}
-              />
+              />,
             ]
       }
     </Pressable>

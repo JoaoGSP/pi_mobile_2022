@@ -12,7 +12,9 @@ import {
   Button,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import MarketContext from '../contexts/marketContext';
 import AuthContext from '../contexts/auth';
 
@@ -41,7 +43,7 @@ export default function HomePage(props) {
                 alignItems: 'center',
                 justifyContent: 'center'}}
               onPress={() => props.navigation.navigate('Market')}>
-              <Icon name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
+              <AntDesign name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
             </Pressable>
           </View>)        
       } if (leng > 0 && leng < 11) {
@@ -51,7 +53,7 @@ export default function HomePage(props) {
                 height: 75, width: 75,  alignSelf: 'center', 
                 alignItems: 'center', paddingTop: 16}}
               onPress={() => props.navigation.navigate('Market')}>
-              <Icon name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
+              <AntDesign name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
             </Pressable>
         )  
       }
@@ -63,23 +65,17 @@ export default function HomePage(props) {
     <View style={styles.container}>
       
       <View style={{
-        //position: 'absolute',
-        //marginTop: 16,
-        borderWidth: 2,
-        borderRadius: 40,
-        width: 100,
-        height: 50,
+        backgroundColor: '#e5e5e5',
+        borderBottomWidth: 2,
+        borderBottomColor: '#ccc',
+        width: '100%',
+        height: '7%',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'flex-end',
         alignItems: 'center'
       }}>
-        <Pressable onPress={() => {
-          props.navigation.navigate('EditProfile');
-        }}>
-          <Icon name='closecircle' size={25} ></Icon>
-          </Pressable>
-          <Pressable onPress={() => signOut()}>
-          <Icon name='closecircleo' size={25}></Icon>
+          <Pressable onPress={() => props.navigation.openDrawer()}>
+          <Ionicons name='menu-sharp' size={35} style={{marginRight: 10, color: '#03113C'}}></Ionicons>
           </Pressable>  
       </View>
 
@@ -156,12 +152,11 @@ const styles = StyleSheet.create({
     //flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'white',
+    borderColor: '#ccc',
     //borderTopWidth: 2,
     borderBottomWidth: 2,
     padding: 8,
     paddingLeft: 24,
-    marginTop: 16,
     width: '100%',
     height: 64,
     backgroundColor: '#e5e5e5',

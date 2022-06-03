@@ -4,199 +4,137 @@ import {
   Image,
   Text,
   TextInput,
-  StyleSheet,
   Pressable,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 
-import RegularButton from '../components/RegularButton';
-
-import Icon from 'react-native-vector-icons/AntDesign'
-
+{
+  /*Dev components and providers*/
+}
 import AuthContext from '../contexts/auth';
+import RegularButton from '../components/RegularButton';
+import {styles} from './Styles/stylesLoginPage';
 
 export default function LoginPage({navigation}) {
-  const { signIn } = useContext(AuthContext);
-  const [ dataForm, setDataForm ] = useState({email: '', password: ''})
-  const [ isFocused, setIsFocused ] = useState(false)
-  const [ isFilled, setIsFilled ] = useState(false)
+  const {signIn} = useContext(AuthContext);
+  const [dataForm, setDataForm] = useState({email: '', password: ''});
+  const [isFocused, setIsFocused] = useState(false);
+  const [trigger, setTrigger] = useState(null);
+  //const [isFilled, setIsFilled] = useState(false);
 
-  function handleInputFocus(){
-    setIsFocused(true)
+  function handleInputFocus(v) {
+    setIsFocused(true);
+    setTrigger(v);
   }
-  function handleInputBlur(){
-    setIsFocused(false)
-    //setIsFilled()
+  function handleInputBlur() {
+    setIsFocused(false);
+    //data ==! '' ? setIsFilled(true) : setIsFilled(false)
   }
-
 
   return (
-    <KeyboardAvoidingView
-    behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
-    style={styles.container}>
-
-      {/*App logo*/}
-      <View style={styles.logoWrapper}>
-        <Image style={styles.logo} source={require('../assets/Logo.png')} />
-      </View>
-
-      {/*Component who wrap the inside part of input field*/}
-      <View style={styles.insideComponent_FormWrapper}>
-        <Text style={styles.inputTitle}>Email:</Text>
-        <View style={isFocused ? styles.inputWrapperFocused : styles.inputWrapperStatic}>
-          <Icon name="mail" size={16} color={isFocused ? '#6DECF2':'#C4C4C4'} style={styles.iconField}/>
-          <TextInput
-            style={styles.inputField}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            onChangeText={email => setDataForm({...dataForm, email})}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            //value={value}
-            placeholder="Insira o seu email..."
-          />
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={styles.container}>
+        {/*App logo*/}
+        <View style={styles.logoWrapper}>
+          <Image style={styles.logo} source={require('../assets/Logo.png')} />
         </View>
-        <Text style={styles.inputTitle}>Senha:</Text>
-        <View style={isFocused ? styles.inputWrapperFocused : styles.inputWrapperStatic}>
-          <Icon name="lock1" size={16} color={isFocused ? '#6DECF2':'#C4C4C4'} style={styles.iconField}/>
-          <TextInput
-            style={styles.inputField}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            onChangeText={password => setDataForm({...dataForm, password})}
-            secureTextEntry={true}
-            //value={password}
-            placeholder="Digite sua senha..."
-          />
-        </View>
-      </View>
 
-      {/*
+        {/*Component who wrap the inside part of input field*/}
+        <View style={styles.insideComponent_FormWrapper}>
+          <Text style={styles.inputTitle}>Email:</Text>
+          <View
+            style={
+              isFocused && trigger === 1
+                ? styles.inputWrapperFocused
+                : styles.inputWrapperStatic
+            }>
+            <Icon
+              name="mail"
+              size={16}
+              color={isFocused && trigger === 1 ? '#6DECF2' : '#C4C4C4'}
+              style={styles.iconField}
+            />
+            <TextInput
+              key={1}
+              style={styles.inputField}
+              onFocus={() => handleInputFocus(1)}
+              onBlur={handleInputBlur}
+              onChangeText={email => setDataForm({...dataForm, email})}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              placeholder="Insira o seu email..."
+              value={dataForm.email}
+            />
+          </View>
+          <Text style={styles.inputTitle}>Senha:</Text>
+          <View
+            style={
+              isFocused && trigger === 2
+                ? styles.inputWrapperFocused
+                : styles.inputWrapperStatic
+            }>
+            <Icon
+              name="lock1"
+              size={16}
+              color={isFocused && trigger === 2 ? '#6DECF2' : '#C4C4C4'}
+              style={styles.iconField}
+            />
+            <TextInput
+              key={2}
+              style={styles.inputField}
+              onFocus={() => handleInputFocus(2)}
+              onBlur={handleInputBlur}
+              onChangeText={password => setDataForm({...dataForm, password})}
+              secureTextEntry={true}
+              autoCapitalize="none"
+              placeholder="Digite sua senha..."
+              value={dataForm.password}
+            />
+          </View>
+        </View>
+
+        {/*
       -- Component who wrap the outside part of input field
       -- Has 2 parts
       -- Login part and the register part
       */}
 
-      <View style={styles.outsideComponent_login}>
-        <Pressable
-          onPress={() => {
-            console.log('Pressed');
-          }}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>LOGIN</Text>
-        </Pressable>
-      </View>
-      {/*Divider*/}
-      <View style={styles.outsideComponent_Register}>
-        <Pressable onPress={() => navigation.navigate('RegisterPage')}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>REGISTRAR-SE</Text>
-        </Pressable>
-      </View>
+        <View style={styles.outsideComponent_login}>
+          <Pressable
+            onPress={() => {
+              console.log('Pressed');
+            }}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>LOGIN</Text>
+          </Pressable>
+        </View>
+        {/*Divider*/}
+        <View style={styles.outsideComponent_Register}>
+          <Pressable onPress={() => navigation.navigate('RegisterPage')}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
+              REGISTRAR-SE
+            </Text>
+          </Pressable>
+        </View>
 
-      {/*
+        {/*
       -- Submit button;
       -- Has 2 parts;
       -- The wrapper button, and the button itself
       */}
-
-      <View style={{alignItems: 'center', paddingTop: 144}}>
-        <RegularButton title='Logar' iconName='rocket1' param={dataForm} func={signIn}/>
-      </View>
-    </KeyboardAvoidingView>
+        <View style={{alignItems: 'center', paddingTop: 144}}>
+          <RegularButton
+            title="Logar"
+            iconName="rocket1"
+            param={dataForm}
+            func={signIn}
+          />
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#E5E5E5',
-  },
-  logoWrapper: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-  logo: {
-    width: 173,
-    height: 193.6,
-    paddingTop: 16,
-  },
-  insideComponent_FormWrapper: {
-    width: 370,
-    height: 240,
-    backgroundColor: '#03113c',
-    //borderTopWidth: 30,
-    borderTopRightRadius: 4,
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    marginTop: 346,
-    position: 'absolute',
-    zIndex: 4,
-    //marginBottom: 56
-  },
-  outsideComponent_login: {
-    //position: 'absolute',
-    width: 185,
-    height: 242,
-    backgroundColor: '#03113c',
-    //borderTopWidth: 30,
-    //borderLeftWidth: 10,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    marginTop: 72,
-    marginRight: 185,
-    paddingTop: 16,
-    alignItems: 'center',
-    zIndex: 3,
-    //marginBottom: 56
-  },
-  outsideComponent_Register: {
-    //position: 'absolute',
-    width: 208,
-    height: 242,
-    backgroundColor: '#03113c',
-    //borderTopWidth: 30,
-    //borderLeftWidth: 10,
-    //borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    marginTop: -242,
-    marginLeft: 162,
-    paddingTop: 16,
-    alignItems: 'center',
-    opacity: 0.5,
-    //marginBottom: 56
-  },
-  inputTitle: {
-    marginTop: 8,
-    color: 'white',
-  },
-  inputWrapperStatic: {
-    width: 324,
-    height: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-    backgroundColor: '#03113c',
-    opacity: 0.5,
-    borderBottomWidth: 2,
-    borderColor: '#C4C4C4',
-  },
-  inputWrapperFocused: {
-    width: 324,
-    height: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-    backgroundColor: '#03113c',
-    opacity: 0.5,
-    borderBottomWidth: 2,
-    borderColor: '#6DECF2',
-  },
-  inputField: {
-    padding: 10,
-  },
-  iconField: {
-    paddingLeft: 16,
-  },
-});
