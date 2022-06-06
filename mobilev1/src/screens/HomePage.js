@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Text,
   View,
@@ -19,23 +19,31 @@ import AuthContext from '../contexts/auth';
 export default function HomePage(props) {
   const {state, dispatch} = useContext(MarketContext);
   const {userLog, signed, signOut} = useContext(AuthContext);
+  //const [balance, setBalance] = useState(0)
+  //const [spent, setSpent] = useState(0)
 
-  console.warn(signed);
+  function wallet(data) {
+    let balance = 100
+    let spent = 0
+      
+    return spent
+
+  }
 
   function marketRedirect(leng) {
     {
       if (leng === 0) {
         return (
-          <View
-            style={{
-              backgroundColor: '#DED9D9',
-              padding: 16,
-              borderWidth: 2,
-              borderColor: 'black',
-              borderRadius: 16,
-              borderColor: '#4D4D4D',
-            }}>
-            <View>
+          <View>
+            <View
+              style={{
+                backgroundColor: '#DED9D9',
+                padding: 16,
+                borderWidth: 2,
+                borderColor: 'black',
+                borderRadius: 16,
+                borderColor: '#4D4D4D',
+              }}>
               <Text
                 style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>
                 Ops!
@@ -48,45 +56,63 @@ export default function HomePage(props) {
                 style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>
                 Vamos as compras?
               </Text>
+              {/*Dev*/}
             </View>
-            {/*Dev*/}
-            <Pressable 
-              style={({pressed})=>[pressed ? styles.shoppingCartButtonPressed : styles.shoppingCartButtonStatic]}
-              onPress={() => props.navigation.navigate('Market')}>
-                {({pressed})=>[
-                  pressed ? <AntDesign
-                  name="shoppingcart"
-                  size={30}
-                  style={styles.shoppingCartTextPressed}
-                />
-                :
-                <AntDesign
-                name="shoppingcart"
-                size={30}
-                style={styles.shoppingCartTextStatic}
-              />
+            <View>
+              <Pressable
+                style={({pressed}) => [
+                  pressed
+                    ? styles.shoppingCartButtonPressed
+                    : styles.shoppingCartButtonStatic,
                 ]}
-            </Pressable>
+                onPress={() => props.navigation.navigate('Market')}>
+                {({pressed}) => [
+                  pressed ? (
+                    <AntDesign
+                      name="shoppingcart"
+                      size={30}
+                      style={styles.shoppingCartTextPressed}
+                    />
+                  ) : (
+                    <AntDesign
+                      name="shoppingcart"
+                      size={30}
+                      style={styles.shoppingCartTextStatic}
+                    />
+                  ),
+                ]}
+              </Pressable>
+            </View>
           </View>
         );
       }
       if (leng > 0 && leng < 11) {
         return (
-          <Pressable
-            style={{
-              height: 75,
-              width: 75,
-              alignSelf: 'center',
-              alignItems: 'center',
-              paddingTop: 16,
-            }}
-            onPress={() => props.navigation.navigate('Market')}>
-            <AntDesign
-              name="shoppingcart"
-              size={30}
-              style={{color: '#4D4D4D', fontWeight: 'bold'}}
-            />
-          </Pressable>
+          <View style={{marginBottom: 24}}>
+            <Pressable
+              style={({pressed}) => [
+                pressed
+                  ? styles.shoppingCartButtonPressed
+                  : styles.shoppingCartButtonStatic,
+              ]}
+              onPress={() => props.navigation.navigate('Market')}>
+              {({pressed}) => [
+                pressed ? (
+                  <AntDesign
+                    name="shoppingcart"
+                    size={30}
+                    style={styles.shoppingCartTextPressed}
+                  />
+                ) : (
+                  <AntDesign
+                    name="shoppingcart"
+                    size={30}
+                    style={styles.shoppingCartTextStatic}
+                  />
+                ),
+              ]}
+            </Pressable>
+          </View>
         );
       }
     }
@@ -130,6 +156,7 @@ export default function HomePage(props) {
       {/*Renderização de time*/}
       <View style={styles.cardGroupWrapper}>
         <ScrollView>
+
           {marketRedirect(state.PlayersDraft.length)}
 
           {state.PlayersDraft.map((playerSelected, idx) => (
@@ -154,7 +181,7 @@ export default function HomePage(props) {
                 </Text>
                 <Text
                   style={{fontSize: 12, fontWeight: 'bold', color: '#03113C'}}>
-                  {playerSelected.price}
+                  {playerSelected.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </Text>
               </View>
               <Pressable
@@ -269,25 +296,30 @@ const styles = StyleSheet.create({
   shoppingCartButtonStatic: {
     height: 75,
     width: 75,
-    marginTop: 16,
+    marginTop: 8,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: 'green',
   },
   shoppingCartButtonPressed: {
     height: 75,
     width: 75,
     borderRadius: 40,
-    backgroundColor:'#03113C',
-    marginTop: 16,
+    backgroundColor: '#03113C',
+    marginTop: 8,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  shoppingCartTextStatic:{
-    color: '#4D4D4D', fontWeight: 'bold'
+  shoppingCartTextStatic: {
+    color: 'green',
+    fontWeight: 'bold',
   },
-  shoppingCartTextPressed:{
-    color: 'white', fontWeight: 'bold'
-  }
+  shoppingCartTextPressed: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
