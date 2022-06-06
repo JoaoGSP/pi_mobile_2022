@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {
   Text,
   View,
@@ -8,75 +8,109 @@ import {
   Pressable,
   Image,
   ScrollView,
-  Alert,
-  Button,
 } from 'react-native';
 
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MarketContext from '../contexts/marketContext';
 import AuthContext from '../contexts/auth';
-
 
 export default function HomePage(props) {
   const {state, dispatch} = useContext(MarketContext);
   const {userLog, signed, signOut} = useContext(AuthContext);
 
-  console.warn(signed)
+  console.warn(signed);
 
   function marketRedirect(leng) {
     {
       if (leng === 0) {
         return (
-          <View style={{backgroundColor: '#DED9D9', padding: 16, borderWidth: 2,
-          borderColor: 'black', borderRadius: 16, borderColor: '#4D4D4D'}}>
+          <View
+            style={{
+              backgroundColor: '#DED9D9',
+              padding: 16,
+              borderWidth: 2,
+              borderColor: 'black',
+              borderRadius: 16,
+              borderColor: '#4D4D4D',
+            }}>
             <View>
-              <Text style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>Ops!</Text>
-              <Text style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>Parece que você ainda não tem ninguem no seu time.</Text>
-              <Text style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>Vamos as compras?</Text>
+              <Text
+                style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>
+                Ops!
+              </Text>
+              <Text
+                style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>
+                Parece que você ainda não tem ninguem no seu time.
+              </Text>
+              <Text
+                style={{fontSize: 24, color: '#4D4D4D', textAlign: 'center'}}>
+                Vamos as compras?
+              </Text>
             </View>
-            <Pressable
-              style={{
-                height: 75, width: 75, 
-                marginTop: 16, alignSelf: 'center', 
-                alignItems: 'center',
-                justifyContent: 'center'}}
+            {/*Dev*/}
+            <Pressable 
+              style={({pressed})=>[pressed ? styles.shoppingCartButtonPressed : styles.shoppingCartButtonStatic]}
               onPress={() => props.navigation.navigate('Market')}>
-              <AntDesign name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
+                {({pressed})=>[
+                  pressed ? <AntDesign
+                  name="shoppingcart"
+                  size={30}
+                  style={styles.shoppingCartTextPressed}
+                />
+                :
+                <AntDesign
+                name="shoppingcart"
+                size={30}
+                style={styles.shoppingCartTextStatic}
+              />
+                ]}
             </Pressable>
-          </View>)        
-      } if (leng > 0 && leng < 11) {
-        return (
-            <Pressable
-              style={{
-                height: 75, width: 75,  alignSelf: 'center', 
-                alignItems: 'center', paddingTop: 16}}
-              onPress={() => props.navigation.navigate('Market')}>
-              <AntDesign name='shoppingcart' size={30} style={{color: '#4D4D4D', fontWeight: 'bold'}}/>
-            </Pressable>
-        )  
+          </View>
+        );
       }
+      if (leng > 0 && leng < 11) {
+        return (
+          <Pressable
+            style={{
+              height: 75,
+              width: 75,
+              alignSelf: 'center',
+              alignItems: 'center',
+              paddingTop: 16,
+            }}
+            onPress={() => props.navigation.navigate('Market')}>
+            <AntDesign
+              name="shoppingcart"
+              size={30}
+              style={{color: '#4D4D4D', fontWeight: 'bold'}}
+            />
+          </Pressable>
+        );
       }
     }
-  
+  }
 
   return (
     <View style={styles.container}>
-      
-      <View style={{
-        backgroundColor: '#e5e5e5',
-        borderBottomWidth: 2,
-        borderBottomColor: '#ccc',
-        width: '100%',
-        height: '7%',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-      }}>
-          <Pressable onPress={() => props.navigation.openDrawer()}>
-          <Ionicons name='menu-sharp' size={35} style={{marginRight: 10, color: '#03113C'}}></Ionicons>
-          </Pressable>  
+      <View
+        style={{
+          backgroundColor: '#e5e5e5',
+          borderBottomWidth: 2,
+          borderBottomColor: '#ccc',
+          width: '100%',
+          height: '7%',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}>
+        <Pressable onPress={() => props.navigation.openDrawer()}>
+          <Ionicons
+            name="menu-sharp"
+            size={35}
+            style={{marginRight: 10, color: '#03113C'}}></Ionicons>
+        </Pressable>
       </View>
 
       {/*Componente carteira*/}
@@ -93,7 +127,6 @@ export default function HomePage(props) {
         </View>
       </View>
 
-      
       {/*Renderização de time*/}
       <View style={styles.cardGroupWrapper}>
         <ScrollView>
@@ -233,4 +266,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  shoppingCartButtonStatic: {
+    height: 75,
+    width: 75,
+    marginTop: 16,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  shoppingCartButtonPressed: {
+    height: 75,
+    width: 75,
+    borderRadius: 40,
+    backgroundColor:'#03113C',
+    marginTop: 16,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  shoppingCartTextStatic:{
+    color: '#4D4D4D', fontWeight: 'bold'
+  },
+  shoppingCartTextPressed:{
+    color: 'white', fontWeight: 'bold'
+  }
 });

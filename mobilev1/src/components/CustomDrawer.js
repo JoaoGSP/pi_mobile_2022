@@ -8,16 +8,15 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AuthContext from '../contexts/auth';
 
-
 export default function CustomDrawer(props) {
-    const {signOut} = useContext(AuthContext)
+  const {signOut} = useContext(AuthContext);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{backgroundColor: '#03113c'}}>
         <ImageBackground
-          source={require('../assets/fundo.jpg')}
+          source={require('../assets/background.jpg')}
           style={{padding: 20, alignItems: 'center'}}>
           <Image
             source={require('../assets/Logo.png')}
@@ -30,17 +29,34 @@ export default function CustomDrawer(props) {
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
+        <Pressable onPress={() => {}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <Ionicons
+              name="information-circle-outline"
+              size={22}
+              color="black"
+            />
+            <Text style={{fontSize: 15, marginLeft: 5, color: 'black'}}>
+              Info do projeto
+            </Text>
+          </View>
+        </Pressable>
         <Pressable onPress={() => signOut}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'flex-end',
+              justifyContent: 'flex-start',
             }}>
-            <Text style={{fontSize: 15, marginRight: 5, color: 'black'}}>
+            <Ionicons name="exit-outline" size={22} color="black" />
+            <Text style={{fontSize: 15, marginLeft: 5, color: 'black'}}>
               Sair
             </Text>
-            <Ionicons name="exit-outline" size={22} color="black" />
           </View>
         </Pressable>
       </View>
