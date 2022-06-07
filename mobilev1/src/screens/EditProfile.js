@@ -18,6 +18,7 @@ import {default as IconFA} from 'react-native-vector-icons/FontAwesome';
 export default function EditProfile() {
     const {userLog, signed, signUp} = useContext(AuthContext);
     const [dataForm, setDataForm] = useState({})
+
 return (
     <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
@@ -57,7 +58,7 @@ return (
               style={styles.inputField}
               placeholder="Insira o seu email..."
               onChangeText={email => setDataForm({...userLog, email})}
-              defaultValue={userLog.email}
+              //defaultValue={userLog.email}
             />
           </View>
           <Text style={styles.inputTitle}>Confirme o Novo Email:</Text>

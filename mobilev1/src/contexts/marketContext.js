@@ -1,10 +1,23 @@
 import React, {createContext, useReducer} from 'react';
+import firebaseApp from '../config/FirebaseConfig';
+import {getDatabase, ref, onValue} from 'firebase/database';
 
 import PlayersBase from '../data/PlayersBase';
 import PlayersDraft from '../data/PlayersDraft';
 
-const initialState = {PlayersBase, PlayersDraft};
+const InitialBalance = 110;
+const NewBalance = 0;
+const initialState = {PlayersBase, PlayersDraft, InitialBalance, NewBalance};
 const MarketContext = createContext({});
+
+const database = getDatabase(firebaseApp);
+
+const playersDataRef = ref(database);
+onValue(playersDataRef, snapshot => {
+  const data = snapshot.val();
+  updateStarCount(postElement, data);
+  console.log(data);
+});
 
 const actions = {
   buyPlayer(state, action) {
@@ -28,6 +41,22 @@ const actions = {
       ...state,
       PlayersBase: [...state.PlayersBase, player],
       PlayersDraft: state.PlayersDraft.filter(p => p.id !== player.id),
+    };
+  },
+  updateBalanceBuy(state, action) {
+    const player = action.payload;
+    return {
+      ...state,
+      NewBalance: state.NewBalance + player.price,
+      InitialBalance: state.InitialBalance - player.price,
+    };
+  },
+  updateBalanceSell(state, action) {
+    const player = action.payload;
+    return {
+      ...state,
+      NewBalance: state.NewBalance - player.price,
+      InitialBalance: state.InitialBalance + player.price,
     };
   },
 };

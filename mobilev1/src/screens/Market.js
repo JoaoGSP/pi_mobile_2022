@@ -1,31 +1,46 @@
-import React, {useContext, useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Pressable,
-  Image,
-  ScrollView,
-} from 'react-native';
-//import { Icon } from 'react-native-elements';
+import React, {useContext, useState} from 'react';
+import {Text, View, Pressable, Image, ScrollView} from 'react-native';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import MarketContext from '../contexts/marketContext';
-
-//import players from '../data/PlayersBase';
+import {styles} from './Styles/stylesMarket';
 
 export default function Market({navigation}) {
   const {state, dispatch} = useContext(MarketContext);
-
   const [searchPosition, setSearchPosition] = useState('');
+  const positions = ['Goleiro', 'Defensor', 'Meia', 'Atacante', ''];
 
-  const positions = ['Goleiro', 'Defensor', 'Meia', 'Atacante'];
+  console.warn(state.NewBalance);
+  console.warn(state.InitialBalance);
 
-  //    const [activate, setActivate] = useState(positions[0]);
   function FilterGroup() {
     return (
       <View style={styles.filterWrapper}>
         {positions.map((position, idx) => {
-          if (position == searchPosition) {
+          if (position == '') {
+            return (
+              <Pressable
+                key={idx}
+                style={({pressed}) => [
+                  pressed
+                    ? styles.clearFilterPressed
+                    : styles.clearFilterStatic,
+                ]}
+                onPress={() => {
+                  setSearchPosition(position);
+                }}>
+                {({pressed}) => [
+                  pressed ? (
+                    <Octicons name="trash" size={15} />
+                  ) : (
+                    <Octicons name="trash" size={15} color="red" />
+                  ),
+                ]}
+              </Pressable>
+            );
+          } else if (position == searchPosition) {
             return (
               <Pressable
                 key={idx}
@@ -60,19 +75,31 @@ export default function Market({navigation}) {
     });
     navigation.navigate(nav);
   }
-
+  function UpdateBalanceBuy(tp, data) {
+    dispatch({
+      type: tp,
+      payload: data,
+    });
+  }
+  function currencyFormat(num) {
+    return 'R$ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
   return (
     <View style={styles.container}>
       <View style={styles.walletWrapper}>
         <View style={styles.spentWrapper}>
           <Text style={{fontWeight: 'bold', color: 'white'}}>Total Gasto:</Text>
-          <Text style={{color: 'white'}}>R$ 00,00</Text>
+          <Text style={{color: 'white'}}>
+            {currencyFormat(state.NewBalance)}
+          </Text>
         </View>
         <View style={styles.balanceWrapper}>
           <Text style={{fontWeight: 'bold', color: 'black'}}>
             Saldo Restante:
           </Text>
-          <Text style={{marginLeft: 24, color: 'black'}}>R$ 100,00</Text>
+          <Text style={{marginLeft: 24, color: 'black'}}>
+            {currencyFormat(state.InitialBalance)}
+          </Text>
         </View>
       </View>
 
@@ -106,15 +133,32 @@ export default function Market({navigation}) {
                 </Text>
                 <Text
                   style={{fontSize: 12, fontWeight: 'bold', color: '#03113C'}}>
-                  R$ {player.price},00
+                  {currencyFormat(player.price)}
                 </Text>
               </View>
               <Pressable
-                style={styles.buttonAction}
+                style={({pressed}) => [
+                  pressed
+                    ? styles.buttonActionPressed
+                    : styles.buttonActionStatic,
+                ]}
                 onPress={() => {
                   BuyPlayer('buyPlayer', player, 'HomePage');
+                  UpdateBalanceBuy('updateBalanceBuy', player);
                 }}>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>+</Text>
+                {({pressed}) => [
+                  pressed ? (
+                    <Ionicons
+                      name="md-add-outline"
+                      color="white"
+                      size={20}></Ionicons>
+                  ) : (
+                    <Ionicons
+                      name="md-add-outline"
+                      color="green"
+                      size={20}></Ionicons>
+                  ),
+                ]}
               </Pressable>
             </View>
           ))}
@@ -123,132 +167,3 @@ export default function Market({navigation}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#E5E5E5',
-  },
-  filterWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderColor: 'white',
-    //borderTopWidth: 2,
-    borderBottomWidth: 2,
-    padding: 8,
-    paddingHorizontal: 16,
-    //marginTop: 8,
-    width: '100%',
-    height: 40,
-    backgroundColor: '#E5E5E5',
-  },
-  buttonDisable: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 12,
-    borderWidth: 2,
-    borderRadius: 40,
-    borderColor: 'white',
-    width: 70,
-    height: 24,
-    backgroundColor: 'white',
-  },
-  buttonActivate: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 12,
-    borderWidth: 2,
-    borderRadius: 40,
-    borderColor: 'white',
-    width: 70,
-    height: 24,
-    backgroundColor: '#03113C',
-  },
-  labelDisable: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#03113C',
-  },
-  labelActivate: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  cardGroupWrapper: {
-    alignItems: 'center',
-    height: '80%',
-    width: '96%',
-    marginTop: 16,
-    //backgroundColor: 'white'
-  },
-  cardWrapper: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    height: 96,
-    width: 336,
-    marginBottom: 8,
-    borderWidth: 2,
-    borderColor: '#03113C',
-    borderRadius: 16,
-  },
-  cardAvatar: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  playerInfo: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonAction: {
-    flex: 1,
-    height: 24,
-    borderRadius: 16,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  walletWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'white',
-    //borderTopWidth: 2,
-    borderBottomWidth: 2,
-    padding: 8,
-    paddingLeft: 24,
-    marginTop: 16,
-    width: '100%',
-    height: 64,
-    backgroundColor: '#E5E5E5',
-  },
-  spentWrapper: {
-    paddingVertical: 8,
-    marginLeft: 128,
-    backgroundColor: '#03113C',
-    height: 48,
-    width: '40%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 25,
-    zIndex: 2,
-  },
-  balanceWrapper: {
-    paddingVertical: 8,
-    position: 'absolute',
-    backgroundColor: '#e5e5e5',
-    height: 48,
-    width: '78%',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    paddingLeft: 16,
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 25,
-    //opacity: 0.5
-  },
-});

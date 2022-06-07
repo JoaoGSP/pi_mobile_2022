@@ -1,34 +1,18 @@
 import 'react-native-gesture-handler';
 
 import React, {useContext, useState} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Pressable,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {Text, View, Pressable, Image, ScrollView} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MarketContext from '../contexts/marketContext';
 import AuthContext from '../contexts/auth';
+import {styles} from './Styles/stylesHomePage';
 
 export default function HomePage(props) {
   const {state, dispatch} = useContext(MarketContext);
   const {userLog, signed, signOut} = useContext(AuthContext);
-  //const [balance, setBalance] = useState(0)
-  //const [spent, setSpent] = useState(0)
-
-  function wallet(data) {
-    let balance = 100
-    let spent = 0
-      
-    return spent
-
-  }
 
   function marketRedirect(leng) {
     {
@@ -117,6 +101,21 @@ export default function HomePage(props) {
       }
     }
   }
+  function SellPlayer(tp, data) {
+    dispatch({
+      type: tp,
+      payload: data,
+    });
+  }
+  function UpdateBalanceSell(tp, data) {
+    dispatch({
+      type: tp,
+      payload: data,
+    });
+  }
+  function currencyFormat(num) {
+    return 'R$ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
 
   return (
     <View style={styles.container}>
@@ -143,20 +142,23 @@ export default function HomePage(props) {
       <View style={styles.walletWrapper}>
         <View style={styles.spentWrapper}>
           <Text style={{fontWeight: 'bold', color: 'white'}}>Total Gasto:</Text>
-          <Text style={{color: 'white'}}>R$ 00,00</Text>
+          <Text style={{color: 'white'}}>
+            {currencyFormat(state.NewBalance)}
+          </Text>
         </View>
         <View style={styles.balanceWrapper}>
           <Text style={{fontWeight: 'bold', color: 'black'}}>
             Saldo Restante:
           </Text>
-          <Text style={{marginLeft: 24, color: 'black'}}>R$ 100,00</Text>
+          <Text style={{marginLeft: 24, color: 'black'}}>
+            {currencyFormat(state.InitialBalance)}
+          </Text>
         </View>
       </View>
 
       {/*Renderização de time*/}
       <View style={styles.cardGroupWrapper}>
         <ScrollView>
-
           {marketRedirect(state.PlayersDraft.length)}
 
           {state.PlayersDraft.map((playerSelected, idx) => (
@@ -181,18 +183,29 @@ export default function HomePage(props) {
                 </Text>
                 <Text
                   style={{fontSize: 12, fontWeight: 'bold', color: '#03113C'}}>
-                  {playerSelected.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                  {currencyFormat(playerSelected.price)}
                 </Text>
               </View>
               <Pressable
-                style={styles.buttonAction}
-                onPress={() =>
-                  dispatch({
-                    type: 'sellPlayer',
-                    payload: playerSelected,
-                  })
-                }>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>-</Text>
+                style={({pressed}) => [
+                  pressed
+                    ? styles.buttonActionPressed
+                    : styles.buttonActionStatic,
+                ]}
+                onPress={() => {
+                  SellPlayer('sellPlayer', playerSelected);
+                  UpdateBalanceSell('updateBalanceSell', playerSelected);
+                }}>
+                {({pressed}) => [
+                  pressed ? (
+                    <Ionicons
+                      name="md-remove"
+                      size={20}
+                      color="white"></Ionicons>
+                  ) : (
+                    <Ionicons name="md-remove" size={20} color="red"></Ionicons>
+                  ),
+                ]}
               </Pressable>
             </View>
           ))}
@@ -201,125 +214,3 @@ export default function HomePage(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#E5E5E5',
-  },
-  walletWrapper: {
-    //flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#ccc',
-    //borderTopWidth: 2,
-    borderBottomWidth: 2,
-    padding: 8,
-    paddingLeft: 24,
-    width: '100%',
-    height: 64,
-    backgroundColor: '#e5e5e5',
-  },
-  spentWrapper: {
-    paddingVertical: 8,
-    marginLeft: 128,
-    backgroundColor: '#03113C',
-    height: 48,
-    width: '40%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 25,
-    zIndex: 2,
-  },
-  balanceWrapper: {
-    paddingVertical: 8,
-    position: 'absolute',
-    backgroundColor: '#E5E5E5',
-    height: 48,
-    width: '78%',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    paddingLeft: 16,
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 25,
-    //opacity: 0.5
-  },
-  labelDisable: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#03113C',
-  },
-  labelActivate: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  cardGroupWrapper: {
-    alignItems: 'center',
-    height: '80%',
-    width: '96%',
-    marginTop: 16,
-    //backgroundColor: 'white'
-  },
-  cardWrapper: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    height: 96,
-    width: 336,
-    marginBottom: 8,
-    borderWidth: 2,
-    borderColor: '#03113C',
-    borderRadius: 16,
-  },
-  cardAvatar: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  playerInfo: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonAction: {
-    flex: 1,
-    height: 24,
-    borderRadius: 16,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  shoppingCartButtonStatic: {
-    height: 75,
-    width: 75,
-    marginTop: 8,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderRadius: 50,
-    borderColor: 'green',
-  },
-  shoppingCartButtonPressed: {
-    height: 75,
-    width: 75,
-    borderRadius: 40,
-    backgroundColor: '#03113C',
-    marginTop: 8,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  shoppingCartTextStatic: {
-    color: 'green',
-    fontWeight: 'bold',
-  },
-  shoppingCartTextPressed: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
