@@ -25,30 +25,6 @@ return (
     style={styles.container}>    
         
 
-        {/*Outside wrapper component*/}
-        <View style={styles.formWrapperOutside}>
-
-          {/*User avatar*/}
-        <View style={{ alignItems: 'center', backgroundColor: 'white', borderRadius: 90}}>
-        <Image
-          style={styles.avatarStyle}
-          source={{
-              uri: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png',
-            }}
-            />
-        </View>
-          <Text
-            style={{
-              color: '#03113c',
-              fontWeight: 'bold',
-              fontSize: 24,
-              textAlign:'center'
-            }}>
-              Qualquer coisa
-          </Text>
-         
-        </View>
-
         {/*Inside wrapper component*/}
         <View style={styles.formWrapperInside}>
           <Text style={styles.inputTitle}>Novo Email:</Text>
@@ -105,54 +81,23 @@ return (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E5E5E5',
   },
   contentPage: {
     paddingTop: 16
   },
-  avatarStyle: {
-    height: 175,
-    width: 175,
-    //alignItems: 'flex-center',
-    borderTopLeftRadius: 90,
-    borderTopRightRadius: 90,
-    borderBottomLeftRadius: 90,
-    borderBottomRightRadius: 90,
-  },
-  formWrapperOutside: {
-    position: 'absolute',
-    width: 370,
-    height: 500,
-    //flexDirection: 'row',
-    backgroundColor: '#5B6585',
-    //borderTopWidth: 30,
-    //borderLeftWidth: 10,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    marginTop: 32,
-    //marginLeft: 170,
-    paddingTop: 16,
-    alignItems: 'center',
-    //opacity: 0.5,
-    zIndex: 3,
-    //marginBottom: 56
-  },
   formWrapperInside: {
-    width: 370,
-    height: 400,
+    width: '80%',
+    height: '65%',
     backgroundColor: '#03113c',
     //borderTopWidth: 32,
     paddingVertical: 16,
     paddingHorizontal: 16,
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
+    borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    marginTop: 270,
     //position: 'absolute',
     zIndex: 4,
     //marginBottom: 56

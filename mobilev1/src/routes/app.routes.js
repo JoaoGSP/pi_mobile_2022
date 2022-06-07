@@ -30,6 +30,15 @@ export default function AppRoutes() {
         drawerLabelStyle: {marginLeft: -25, fontSize: 15},
       }}>
       <AppDrawer.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          drawerIcon: ({color}) => (
+            <Feather name="edit" size={22} color={color} />
+          ),
+        }}
+      />
+      <AppDrawer.Screen
         name="HomePage"
         component={HomePage}
         options={{
@@ -44,15 +53,6 @@ export default function AppRoutes() {
         options={{
           drawerIcon: ({color}) => (
             <Feather name="shopping-cart" size={22} color={color} />
-          ),
-        }}
-      />
-      <AppDrawer.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          drawerIcon: ({color}) => (
-            <Feather name="edit" size={22} color={color} />
           ),
         }}
       />
