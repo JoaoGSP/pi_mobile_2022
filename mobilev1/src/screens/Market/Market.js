@@ -4,8 +4,8 @@ import {Text, View, Pressable, Image, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 
-import MarketContext from '../contexts/marketContext';
-import {styles} from './Styles/stylesMarket';
+import MarketContext from '../../contexts/marketContext';
+import {styles} from './stylesMarket';
 
 export default function Market({navigation}) {
   const {state, dispatch} = useContext(MarketContext);

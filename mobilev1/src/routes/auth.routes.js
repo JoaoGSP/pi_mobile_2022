@@ -4,9 +4,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 {
   /*Pages*/
 }
-import LandingPage from '../screens/LandingPage';
-import LoginPage from '../screens/LoginPage';
-import RegisterPage from '../screens/RegisterPage';
+import LandingPage from '../screens/LandingPage/LandingPage';
+import LoginPage from '../screens/LoginPage/LoginPage';
+import RegisterPage from '../screens/RegisterPage/RegisterPage';
 
 {
   /*Debug*/

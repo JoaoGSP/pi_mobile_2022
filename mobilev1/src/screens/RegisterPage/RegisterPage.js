@@ -43,7 +43,6 @@ export default function RegisterPage({navigation}) {
         <View style={styles.logoWrapper}>
           <Image style={styles.logo} source={require('../assets/Logo.png')} />
         </View>
-
         {/*Component who wrap the inside part of input field*/}
         <View style={styles.insideComponent_FormWrapper}>
           <Text style={styles.inputTitle}>Nome:</Text>
@@ -93,6 +92,7 @@ export default function RegisterPage({navigation}) {
               placeholder="Insira o seu email..."
             />
           </View>
+
           <Text style={styles.inputTitle}>Senha</Text>
           <View
             style={
