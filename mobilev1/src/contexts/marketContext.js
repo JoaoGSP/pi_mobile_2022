@@ -9,7 +9,7 @@ const InitialBalance = 110;
 const NewBalance = 0;
 const initialState = {PlayersBase, PlayersDraft, InitialBalance, NewBalance};
 const MarketContext = createContext({});
-
+{/*
 const database = getDatabase(firebaseApp);
 
 const playersDataRef = ref(database);
@@ -18,7 +18,7 @@ onValue(playersDataRef, snapshot => {
   updateStarCount(postElement, data);
   console.log(data);
 });
-
+*/}
 const actions = {
   buyPlayer(state, action) {
     const player = action.payload;

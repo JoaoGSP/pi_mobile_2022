@@ -6,7 +6,7 @@ export default function RegularButton(props) {
   return (
     <Pressable
       onPress={() => {
-        props.func(props.param);
+        props.func();
       }}
       style={({pressed}) => [
         pressed ? styles.logButtonPressed : styles.logButtonStatic,

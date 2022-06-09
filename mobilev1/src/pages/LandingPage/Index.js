@@ -4,8 +4,8 @@ import {View, Image} from 'react-native';
 {
   /*Dev components and providers*/
 }
-import NavigationButton from '../components/NavigationButton';
-import {styles} from './Styles/stylesLandingPage';
+import NavigationButton from '../../components/NavigationButton';
+import {styles} from './stylesLandingPage';
 
 export default function LandingPage({navigation}) {
   function goTo(page) {
@@ -15,7 +15,7 @@ export default function LandingPage({navigation}) {
   return (
     <View>
       <View style={styles.logoWrapper}>
-        <Image style={styles.logo} source={require('../assets/Logo.png')} />
+        <Image style={styles.logo} source={require('../../assets/Logo.png')} />
       </View>
       <View style={styles.buttonWrapper}>
         <View>

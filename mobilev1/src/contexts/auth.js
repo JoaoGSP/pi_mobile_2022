@@ -1,25 +1,36 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import firebaseApp from '../config/FirebaseConfig';
 import {
   getAuth,
+  signOut,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  onAuthStateChanged
 } from 'firebase/auth';
 
 const AuthContext = createContext({});
 
 export function AuthProvider({children}) {
   const auth = getAuth(firebaseApp);
-  const [userLog, setUserLog] = useState(null);
-  const [signed, setSigned] = useState(false);
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user)
+      }
+    });
+  }, [])
+  
 
   function signIn(dataForm) {
     const email = dataForm.email;
     const password = dataForm.password;
+    
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
-        setSigned(userCredential.user);
+        setUser(userCredential.user);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -28,16 +39,14 @@ export function AuthProvider({children}) {
       });
   }
 
-  function signUp({dataForm, userLogInfo}) {
+  function signUp(dataForm) {
     const email = dataForm.email;
-    const password = dataForm.password;
-    const name = userLogInfo.name;
+    const password = dataForm.validatePassword;
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
-        setSigned(userCredential.user);
-        setUserLog(name);
+        setUser(userCredential.user);
         // ...
       })
       .catch(error => {
@@ -48,12 +57,17 @@ export function AuthProvider({children}) {
       });
   }
 
-  function signOut() {
-    setSigned(false);
+  function signOutUser() {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      setUser(false);
+    }).catch((error) => {
+      // An error happened.
+    });
   }
 
   return (
-    <AuthContext.Provider value={{signed, userLog, signUp, signOut, signIn}}>
+    <AuthContext.Provider value={{user, signUp, signOutUser, signIn}}>
       {children}
     </AuthContext.Provider>
   );

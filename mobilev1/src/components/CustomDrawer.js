@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AuthContext from '../contexts/auth';
 
 export default function CustomDrawer(props) {
-  const {signOut} = useContext(AuthContext);
+  const {signOutUser} = useContext(AuthContext);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView
@@ -46,7 +46,7 @@ export default function CustomDrawer(props) {
             </Text>
           </View>
         </Pressable>
-        <Pressable onPress={() => signOut}>
+        <Pressable onPress={signOutUser}>
           <View
             style={{
               flexDirection: 'row',

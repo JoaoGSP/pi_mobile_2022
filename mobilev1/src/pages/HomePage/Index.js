@@ -7,12 +7,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MarketContext from '../../contexts/marketContext';
-import AuthContext from '../../contexts/auth';
 import {styles} from './stylesHomePage';
 
 export default function HomePage(props) {
   const {state, dispatch} = useContext(MarketContext);
-  const {userLog, signed, signOut} = useContext(AuthContext);
 
   function marketRedirect(leng) {
     {

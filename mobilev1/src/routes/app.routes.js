@@ -10,9 +10,9 @@ import CustomDrawer from '../components/CustomDrawer';
 {
   /*Pages*/
 }
-import HomePage from '../screens/HomePage/HomePage';
-import Market from '../screens/Market/Market';
-import EditProfile from '../screens/EditProfile/EditProfile';
+import HomePage from '../pages/HomePage/Index';
+import Market from '../pages/Market/Index';
+import EditProfile from '../pages/EditProfile';
 
 //import Debug from '../screens/Debug';
 
@@ -30,6 +30,15 @@ export default function AppRoutes() {
         drawerLabelStyle: {marginLeft: -25, fontSize: 15},
       }}>
       <AppDrawer.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          drawerIcon: ({color}) => (
+            <Feather name="edit" size={22} color={color} />
+          ),
+        }}
+      />
+      <AppDrawer.Screen
         name="HomePage"
         component={HomePage}
         options={{
@@ -44,15 +53,6 @@ export default function AppRoutes() {
         options={{
           drawerIcon: ({color}) => (
             <Feather name="shopping-cart" size={22} color={color} />
-          ),
-        }}
-      />
-      <AppDrawer.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          drawerIcon: ({color}) => (
-            <Feather name="edit" size={22} color={color} />
           ),
         }}
       />

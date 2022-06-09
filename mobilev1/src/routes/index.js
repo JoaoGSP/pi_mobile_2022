@@ -8,6 +8,6 @@ import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 
 export default function Routes() {
-  const {signed} = useContext(AuthContext);
-  return !signed ? <AppRoutes /> : <AuthRoutes />;
+  const {user} = useContext(AuthContext);
+  return user ? <AppRoutes /> : <AuthRoutes />;
 }
