@@ -1,8 +1,6 @@
 import React, {useContext} from 'react';
 
-{
-  /*Dev components and providers*/
-}
+//Dev components and providers
 import AuthContext from '../contexts/auth';
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';

@@ -1,9 +1,11 @@
-import React, {useContext, useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import React, {useContext} from 'react';
 import {
   View,
   Image,
   Text,
-  TextInput,
   Pressable,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -15,7 +17,7 @@ import {useForm} from 'react-hook-form';
 import AuthContext from '../../contexts/auth';
 import RegularButton from '../../components/RegularButton';
 import CustomInput from '../../components/CustomInput';
-import {styles} from './stylesRegisterPage';
+import {styles} from './styles';
 
 export default function RegisterPage({navigation}) {
   const {signUp} = useContext(AuthContext);
@@ -25,7 +27,7 @@ export default function RegisterPage({navigation}) {
     watch,
     formState: {errors},
   } = useForm();
-  const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const pwd = watch('password');
 
   return (
@@ -43,7 +45,7 @@ export default function RegisterPage({navigation}) {
         {/*Component who wrap the inside part of input field*/}
         <View style={styles.insideComponent_FormWrapper}>
           <CustomInput
-            name="mail"
+            name="email"
             inputTitle="Email:"
             iconName="mail"
             key={0}

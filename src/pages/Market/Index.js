@@ -1,25 +1,25 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useState} from 'react';
 import {Text, View, Pressable, Image, ScrollView} from 'react-native';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Octicons from 'react-native-vector-icons/Octicons';
 
+//Dev components and providers
 import MarketContext from '../../contexts/marketContext';
-import {styles} from './stylesMarket';
+import Wallet from '../../components/Wallet';
+import {styles} from './styles';
+import AlertBox from '../../components/AlertBox';
 
 export default function Market({navigation}) {
   const {state, dispatch} = useContext(MarketContext);
   const [searchPosition, setSearchPosition] = useState('');
   const positions = ['Goleiro', 'Defensor', 'Meia', 'Atacante', ''];
 
-  console.warn(state.NewBalance);
-  console.warn(state.InitialBalance);
-
   function FilterGroup() {
     return (
       <View style={styles.filterWrapper}>
         {positions.map((position, idx) => {
-          if (position == '') {
+          if (position === '') {
             return (
               <Pressable
                 key={idx}
@@ -40,7 +40,7 @@ export default function Market({navigation}) {
                 ]}
               </Pressable>
             );
-          } else if (position == searchPosition) {
+          } else if (position === searchPosition) {
             return (
               <Pressable
                 key={idx}
@@ -86,23 +86,8 @@ export default function Market({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.walletWrapper}>
-        <View style={styles.spentWrapper}>
-          <Text style={{fontWeight: 'bold', color: 'white'}}>Total Gasto:</Text>
-          <Text style={{color: 'white'}}>
-            {currencyFormat(state.NewBalance)}
-          </Text>
-        </View>
-        <View style={styles.balanceWrapper}>
-          <Text style={{fontWeight: 'bold', color: 'black'}}>
-            Saldo Restante:
-          </Text>
-          <Text style={{marginLeft: 24, color: 'black'}}>
-            {currencyFormat(state.InitialBalance)}
-          </Text>
-        </View>
-      </View>
-
+      <AlertBox />
+      <Wallet />
       {FilterGroup()}
 
       <View style={styles.cardGroupWrapper}>
@@ -143,20 +128,14 @@ export default function Market({navigation}) {
                     : styles.buttonActionStatic,
                 ]}
                 onPress={() => {
-                  BuyPlayer('buyPlayer', player, 'HomePage');
+                  BuyPlayer('buyPlayer', player, 'Página Inicial');
                   UpdateBalanceBuy('updateBalanceBuy', player);
                 }}>
                 {({pressed}) => [
                   pressed ? (
-                    <Ionicons
-                      name="md-add-outline"
-                      color="white"
-                      size={20}></Ionicons>
+                    <Ionicons name="md-add-outline" color="white" size={20} />
                   ) : (
-                    <Ionicons
-                      name="md-add-outline"
-                      color="green"
-                      size={20}></Ionicons>
+                    <Ionicons name="md-add-outline" color="green" size={20} />
                   ),
                 ]}
               </Pressable>

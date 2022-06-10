@@ -1,45 +1,56 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useContext} from 'react';
+import {Pressable, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
-{
-  /*Custom*/
-}
+//Custom
 import CustomDrawer from '../components/CustomDrawer';
-{
-  /*Pages*/
-}
+
+//Pages
 import HomePage from '../pages/HomePage/Index';
 import Market from '../pages/Market/Index';
-import EditProfile from '../pages/EditProfile';
+import EditProfile from '../pages/EditProfile/Index';
 
-//import Debug from '../screens/Debug';
+//Contexts
+import AuthContext from '../contexts/auth';
 
 const AppDrawer = createDrawerNavigator();
 
 export default function AppRoutes() {
+  const {showAlertForSignOut} = useContext(AuthContext);
   return (
     <AppDrawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
-        headerShown: false,
         drawerActiveBackgroundColor: '#03113c',
         drawerActiveTintColor: '#6DECF2',
         drawerInactiveTintColor: 'black',
         drawerLabelStyle: {marginLeft: -25, fontSize: 15},
+        headerTitleAlign: 'center',
+        headerTintColor: 'white',
+        headerRight: () => (
+          <Pressable onPress={() => showAlertForSignOut(true)}>
+            {({pressed}) =>
+              pressed
+                ? [
+                    <View style={{marginRight: 16}}>
+                      <Ionicons name="exit-outline" size={25} color="#6DECF2" />
+                    </View>,
+                  ]
+                : [
+                    <View style={{marginRight: 16}}>
+                      <Ionicons name="exit-outline" size={25} color="white" />
+                    </View>,
+                  ]
+            }
+          </Pressable>
+        ),
+        headerStyle: {backgroundColor: '#03113c'},
       }}>
       <AppDrawer.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          drawerIcon: ({color}) => (
-            <Feather name="edit" size={22} color={color} />
-          ),
-        }}
-      />
-      <AppDrawer.Screen
-        name="HomePage"
+        name="Página Inicial"
         component={HomePage}
         options={{
           drawerIcon: ({color}) => (
@@ -48,7 +59,16 @@ export default function AppRoutes() {
         }}
       />
       <AppDrawer.Screen
-        name="Market"
+        name="Editar Perfil"
+        component={EditProfile}
+        options={{
+          drawerIcon: ({color}) => (
+            <Feather name="edit" size={22} color={color} />
+          ),
+        }}
+      />
+      <AppDrawer.Screen
+        name="Mercado"
         component={Market}
         options={{
           drawerIcon: ({color}) => (
@@ -59,5 +79,3 @@ export default function AppRoutes() {
     </AppDrawer.Navigator>
   );
 }
-//<AppStack.Screen name='Debug' component={Debug} />
-//initialRouteName='HomePage'>

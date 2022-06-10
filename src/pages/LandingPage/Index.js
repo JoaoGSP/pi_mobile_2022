@@ -1,11 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Image} from 'react-native';
 
-{
-  /*Dev components and providers*/
-}
+//Dev components and providers
 import NavigationButton from '../../components/NavigationButton';
-import {styles} from './stylesLandingPage';
+import {styles} from './styles';
 
 export default function LandingPage({navigation}) {
   function goTo(page) {

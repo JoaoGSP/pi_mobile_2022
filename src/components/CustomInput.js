@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 
@@ -32,40 +33,38 @@ export default function CustomInput({
       name={name}
       rules={rules}
       render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-          <View>
-            <Text style={styles.inputTitle}>{inputTitle}</Text>
-            <View
-              style={
-                isFocused
-                  ? styles.inputWrapperFocused
-                  : styles.inputWrapperStatic
-              }>
-              <AntDesign
-                name={iconName}
-                size={16}
-                color={isFocused ? '#6DECF2' : '#C4C4C4'}
-                style={styles.iconField}
-              />
-              <TextInput
-                key={key}
-                style={styles.inputField}
-                onFocus={() => handleInputFocus()}
-                onBlur={handleInputBlur}
-                onEndEditing={onBlur}
-                onChangeText={onChange}
-                autoCapitalize={autoCapitalize}
-                keyboardType={keyboardType}
-                secureTextEntry={secureTextEntry}
-                placeholder={placeholder}
-                value={value}
-              />
-            </View>
-            {error && (
-              <Text style={{color: '#ff5454', alignSelf: 'center'}}>
-                {error.message}
-              </Text>
-            )}
+        <View>
+          <Text style={styles.inputTitle}>{inputTitle}</Text>
+          <View
+            style={
+              isFocused ? styles.inputWrapperFocused : styles.inputWrapperStatic
+            }>
+            <AntDesign
+              name={iconName}
+              size={16}
+              color={isFocused ? '#6DECF2' : '#C4C4C4'}
+              style={styles.iconField}
+            />
+            <TextInput
+              key={key}
+              style={styles.inputField}
+              onFocus={() => handleInputFocus()}
+              onBlur={handleInputBlur}
+              onEndEditing={onBlur}
+              onChangeText={onChange}
+              autoCapitalize={autoCapitalize}
+              keyboardType={keyboardType}
+              secureTextEntry={secureTextEntry}
+              placeholder={placeholder}
+              value={value}
+            />
           </View>
+          {error && (
+            <Text style={{color: '#ff5454', alignSelf: 'center'}}>
+              {error.message}
+            </Text>
+          )}
+        </View>
       )}
     />
   );
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     height: 44,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 6,
     backgroundColor: '#03113c',
     opacity: 0.5,
     borderBottomWidth: 2,
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     height: 44,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 6,
     backgroundColor: '#03113c',
     opacity: 0.5,
     borderBottomWidth: 2,

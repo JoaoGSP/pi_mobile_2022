@@ -1,3 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React, {useContext} from 'react';
 import {
   View,
@@ -7,17 +10,14 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import {useForm} from 'react-hook-form';
 
-{
-  /*Dev components and providers*/
-}
+//Dev components and providers
 import AuthContext from '../../contexts/auth';
 import RegularButton from '../../components/RegularButton';
 import CustomInput from '../../components/CustomInput';
-import {styles} from './stylesLoginPage';
+import {styles} from './styles';
 
 export default function LoginPage({navigation}) {
   const {signIn} = useContext(AuthContext);
@@ -26,7 +26,7 @@ export default function LoginPage({navigation}) {
     control,
     formState: {errors},
   } = useForm();
-  const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>

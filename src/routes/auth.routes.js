@@ -1,20 +1,10 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-{
-  /*Pages*/
-}
+//Pages
 import LandingPage from '../pages/LandingPage/Index';
 import LoginPage from '../pages/LoginPage/Index';
 import RegisterPage from '../pages/RegisterPage/Index';
-
-{
-  /*Debug*/
-}
-//import { Debug } from '../screens/Debug'
-//import HomePage from '../screens/HomePage'
-
-//<AuthStack.Screen name='Debug' component={Debug} />
 
 const AuthStack = createNativeStackNavigator();
 
