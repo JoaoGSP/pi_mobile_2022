@@ -1,4 +1,5 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {createContext, useState, useEffect} from 'react';
 import firebaseApp from '../config/FirebaseConfig';
 import {
@@ -10,6 +11,7 @@ import {
   updateProfile,
   updateEmail,
   updatePassword,
+  deleteUser,
 } from 'firebase/auth';
 
 const AuthContext = createContext({});
@@ -28,52 +30,69 @@ export function AuthProvider({children}) {
     });
   }, []);
 
-  //Function for manipulate user
-  function updateUserProfile(dataForm) {
+  //Functions for update user informations
+  function UpdateUserDisplayName(dataForm) {
     const displayName = dataForm.name;
-    const newEmail = dataForm.email;
+
+    updateProfile(user, {
+      displayName: displayName,
+    })
+      .then(() => {
+        // Profile updated!
+        console.warn('Nome de usuário atualizado!');
+        // ...
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  }
+
+  function UpdateUserEmail(dataForm) {
+    const newEmail = dataForm.validateEmail;
+
+    updateEmail(user, newEmail)
+      .then(() => {
+        // Email updated!
+        console.warn('Email atualizado!');
+        // ...
+      })
+      .catch(error => {
+        // An error occurred
+        console.warn(error);
+        // ...
+      });
+  }
+  function UpdateUserPassword(dataForm) {
     const newPassword = dataForm.validatePassword;
 
-    if (displayName) {
-      updateProfile(user, {
-        displayName: displayName,
+    updatePassword(user, newPassword)
+      .then(() => {
+        // Update successful.
+        console.warn('Senha atualizada!');
       })
-        .then(() => {
-          // Profile updated!
-          // ...
-        })
-        .catch(error => {
-          // An error occurred
-          // ...
-        });
-    }
+      .catch(error => {
+        // An error ocurred
+        console.warn(error);
+        // ...
+      });
+  }
 
-    if (newEmail) {
-      updateEmail(user, newEmail)
-        .then(() => {
-          // Email updated!
-          // ...
-        })
-        .catch(error => {
-          // An error occurred
-          // ...
-        });
-    }
-
-    if (newPassword) {
-      updatePassword(user, newPassword)
-        .then(() => {
-          // Update successful.
-        })
-        .catch(error => {
-          // An error ocurred
-          // ...
-        });
-    }
+  function DeleteUserAccount() {
+    deleteUser(user)
+      .then(() => {
+        // User deleted.
+        setUser(false);
+        console.warn('Usuário deletado');
+      })
+      .catch(error => {
+        // An error ocurred
+        console.warn(error);
+        // ...
+      });
   }
 
   //Functions for user state
-  function signIn(dataForm) {
+  function SignIn(dataForm) {
     const email = dataForm.email;
     const password = dataForm.password;
 
@@ -89,7 +108,7 @@ export function AuthProvider({children}) {
       });
   }
 
-  function signUp(dataForm) {
+  function SignUp(dataForm) {
     const email = dataForm.email;
     const password = dataForm.validatePassword;
 
@@ -107,14 +126,7 @@ export function AuthProvider({children}) {
       });
   }
 
-  function showAlertForSignOut() {
-    setShowAlert(true);
-  }
-  function hideAlertForSignOut() {
-    setShowAlert(false);
-  }
-
-  function signOutUser() {
+  function SignOutUser() {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
@@ -126,17 +138,29 @@ export function AuthProvider({children}) {
       });
   }
 
+  function ShowAlertForSignOut() {
+    setShowAlert(true);
+  }
+
+  function HideAlertForSignOut() {
+    setShowAlert(false);
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        signUp,
-        signOutUser,
-        signIn,
-        updateUserProfile,
+        SignUp,
+        SignOutUser,
+        SignIn,
         showAlert,
-        showAlertForSignOut,
-        hideAlertForSignOut,
+        ShowAlertForSignOut,
+        HideAlertForSignOut,
+
+        UpdateUserDisplayName,
+        UpdateUserEmail,
+        UpdateUserPassword,
+        DeleteUserAccount,
       }}>
       {children}
     </AuthContext.Provider>

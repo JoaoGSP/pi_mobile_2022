@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, View, Pressable, Text} from 'react-native';
 
@@ -12,147 +13,157 @@ export default function Debug() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-            <View style={{height: '95%',
+        <View
+          style={{
+            height: '95%',
             position: 'absolute',
             width: '95%',
             zIndex: 2,
-            borderWidth: 3,}}>
-                {/*Players Holdder*/}
-                <View style={{borderWidth:1, borderColor: 'white', flex: 1}}></View>
-                <View style={{borderWidth:1, borderColor: 'white', flex: 1}}>
-                <Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable>
-                </View>
-                <View style={{borderWidth:1, borderColor: 'white', flex: 1}}>
-                <Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable>
-                </View>
-                <View style={{borderWidth:1, borderColor: 'white', flex: 1}}>
-                <Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable><Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 40,
-                  height: 40,
-                  borderWidth: 3,
-                  borderColor: 'black',
-                  borderRadius: 80,
-                }}>
-                <Text>+</Text>
-              </Pressable>
-                </View>
-                <View style={{borderWidth:1, borderColor: 'white', flex: 1}}>
-                    <Pressable
-                    style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 40,
-                    height: 40,
-                    borderWidth: 3,
-                    borderColor: 'black',
-                    borderRadius: 80,
-                    }}>
-                    <Text>+</Text>
-                    </Pressable>
-                </View>
-            </View>
+            borderWidth: 3,
+          }}>
+          {/*Players Holdder*/}
+          <View style={{borderWidth: 1, borderColor: 'white', flex: 1}} />
+          <View style={{borderWidth: 1, borderColor: 'white', flex: 1}}>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+          </View>
+          <View style={{borderWidth: 1, borderColor: 'white', flex: 1}}>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+          </View>
+          <View style={{borderWidth: 1, borderColor: 'white', flex: 1}}>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+          </View>
+          <View style={{borderWidth: 1, borderColor: 'white', flex: 1}}>
+            <Pressable
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderWidth: 3,
+                borderColor: 'black',
+                borderRadius: 80,
+              }}>
+              <Text>+</Text>
+            </Pressable>
+          </View>
+        </View>
         <View
           style={{
             backgroundColor: 'green',
@@ -200,7 +211,6 @@ export default function Debug() {
                 width: '60%',
               }}>
               {/*Area*/}
-              
             </View>
           </View>
           <View

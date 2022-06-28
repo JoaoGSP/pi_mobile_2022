@@ -20,7 +20,7 @@ import CustomInput from '../../components/CustomInput';
 import {styles} from './styles';
 
 export default function LoginPage({navigation}) {
-  const {signIn} = useContext(AuthContext);
+  const {SignIn} = useContext(AuthContext);
   const {
     handleSubmit,
     control,
@@ -47,7 +47,6 @@ export default function LoginPage({navigation}) {
             name="email"
             inputTitle="Email:"
             iconName="mail"
-            key={0}
             control={control}
             keyboardType="email-address"
             autoCapitalize="none"
@@ -61,7 +60,6 @@ export default function LoginPage({navigation}) {
             name="password"
             inputTitle="Senha:"
             iconName="lock1"
-            key={1}
             control={control}
             secureTextEntry={true}
             placeholder="Digite sua senha..."
@@ -101,7 +99,7 @@ export default function LoginPage({navigation}) {
           <RegularButton
             title="Logar"
             iconName="rocket1"
-            func={handleSubmit(signIn)}
+            func={handleSubmit(SignIn)}
           />
         </View>
       </KeyboardAvoidingView>

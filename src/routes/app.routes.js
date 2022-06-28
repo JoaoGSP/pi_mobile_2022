@@ -2,6 +2,7 @@
 import React, {useContext} from 'react';
 import {Pressable, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -11,15 +12,33 @@ import CustomDrawer from '../components/CustomDrawer';
 //Pages
 import HomePage from '../pages/HomePage/Index';
 import Market from '../pages/Market/Index';
-import EditProfile from '../pages/EditProfile/Index';
+import Index from '../pages/EditProfile/Index';
+import EditName from '../pages/EditProfile/EditName';
+import ChangeEmail from '../pages/EditProfile/ChangeEmail';
+import ChangePassword from '../pages/EditProfile/ChangePassword';
 
 //Contexts
 import AuthContext from '../contexts/auth';
 
 const AppDrawer = createDrawerNavigator();
+const AppStack = createNativeStackNavigator();
 
 export default function AppRoutes() {
-  const {showAlertForSignOut} = useContext(AuthContext);
+  const {ShowAlertForSignOut} = useContext(AuthContext);
+
+  function EditProfile() {
+    return (
+      <AppStack.Navigator
+        screenOptions={{headerShown: false}}
+        initialRouteName="EditProfileMain">
+        <AppStack.Screen name="EditProfileMain" component={Index} />
+        <AppStack.Screen name="EditName" component={EditName} />
+        <AppStack.Screen name="ChangeEmail" component={ChangeEmail} />
+        <AppStack.Screen name="ChangePassword" component={ChangePassword} />
+      </AppStack.Navigator>
+    );
+  }
+
   return (
     <AppDrawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -31,7 +50,7 @@ export default function AppRoutes() {
         headerTitleAlign: 'center',
         headerTintColor: 'white',
         headerRight: () => (
-          <Pressable onPress={() => showAlertForSignOut(true)}>
+          <Pressable onPress={() => ShowAlertForSignOut(true)}>
             {({pressed}) =>
               pressed
                 ? [

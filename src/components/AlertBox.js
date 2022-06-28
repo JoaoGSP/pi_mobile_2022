@@ -6,12 +6,12 @@ import {Text, Modal, View, StyleSheet, Image, Pressable} from 'react-native';
 import AuthContext from '../contexts/auth';
 
 export default function AlertBox() {
-  const {showAlert, hideAlertForSignOut, signOutUser} = useContext(AuthContext);
+  const {showAlert, HideAlertForSignOut, SignOutUser} = useContext(AuthContext);
   return (
     <Modal
       visible={showAlert}
       transparent
-      onRequestClose={() => hideAlertForSignOut()}>
+      onRequestClose={() => HideAlertForSignOut()}>
       <View style={styles.container}>
         <View style={styles.alertWrapper}>
           <View style={styles.imageWrapper}>
@@ -28,7 +28,7 @@ export default function AlertBox() {
 
           <View style={styles.buttonGroupWrapper}>
             <Pressable
-              onPress={signOutUser}
+              onPress={() => SignOutUser()}
               style={({pressed}) => [
                 pressed ? styles.exitButtonPressed : styles.exitButtonStatic,
               ]}>
@@ -47,7 +47,7 @@ export default function AlertBox() {
               }
             </Pressable>
             <Pressable
-              onPress={hideAlertForSignOut}
+              onPress={() => HideAlertForSignOut()}
               style={({pressed}) => [
                 pressed ? styles.stayButtonPressed : styles.stayButtonStatic,
               ]}>

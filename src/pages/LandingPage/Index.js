@@ -17,18 +17,14 @@ export default function LandingPage({navigation}) {
         <Image style={styles.logo} source={require('../../assets/Logo.png')} />
       </View>
       <View style={styles.buttonWrapper}>
-        <View>
-          <NavigationButton
-            key={0}
-            title="Fazer Login"
-            iconName="rocket1"
-            routeName="LoginPage"
-            func={goTo}
-          />
-        </View>
+        <NavigationButton
+          title="Fazer Login"
+          iconName="rocket1"
+          routeName="LoginPage"
+          func={goTo}
+        />
         <View style={{paddingTop: 40}}>
           <NavigationButton
-            key={1}
             title="Registrar-se"
             iconName="save"
             routeName="RegisterPage"
