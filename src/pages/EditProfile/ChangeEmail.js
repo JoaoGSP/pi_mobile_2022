@@ -1,8 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
-import {Pressable, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {
+  Pressable,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  Keyboard,
+} from 'react-native';
 import {useForm} from 'react-hook-form';
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 
 //Dev components and providers
 import CustomInput from '../../components/CustomInput';
@@ -35,7 +40,7 @@ export default function ChangeEmail({navigation}) {
     [isSubmitSuccessful];
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.containerOnForms}>
         <View style={styles.formWrapper}>
           <Text style={{color: '#6DECF2'}}>Email atual: {currentEmail}</Text>

@@ -49,10 +49,10 @@ export default function CustomInput({
                 style={styles.iconField}
               />
               <TextInput
-                key={Math.random()}
+                key={key}
                 style={styles.inputField}
                 onFocus={() => handleInputFocus()}
-                onBlur={handleInputBlur}
+                onBlur={() => handleInputBlur()}
                 onEndEditing={onBlur}
                 onChangeText={onChange}
                 autoCapitalize={autoCapitalize}

@@ -1,7 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
-import {Pressable, Text, TouchableWithoutFeedback, View} from 'react-native';
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+import {
+  Keyboard,
+  Pressable,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {useForm} from 'react-hook-form';
 
 //Dev components and providers
@@ -32,7 +37,7 @@ export default function EditName({navigation}) {
     [isSubmitSuccessful];
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.containerOnForms}>
         <View style={styles.formWrapper}>
           <Text style={{color: '#6DECF2'}}>Nome atual: {currentName}</Text>

@@ -7,9 +7,7 @@ export default function ButtonForEditProfile(props) {
   return (
     <>
       <Pressable
-        onPress={() => {
-          props.func(props.routeName);
-        }}
+        onPress={() => props.func(props.routeName)}
         style={({pressed}) => [
           pressed ? styles.buttonWrpperPressed : styles.buttonWrpperStatic,
         ]}>

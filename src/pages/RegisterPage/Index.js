@@ -9,8 +9,8 @@ import {
   Pressable,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import {useForm} from 'react-hook-form';
 
 //Dev components and providers
@@ -31,7 +31,7 @@ export default function RegisterPage({navigation}) {
   const pwd = watch('password');
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
         style={styles.container}>
@@ -45,6 +45,7 @@ export default function RegisterPage({navigation}) {
         {/*Component who wrap the inside part of input field*/}
         <View style={styles.insideComponent_FormWrapper}>
           <CustomInput
+            key={0}
             name="email"
             inputTitle="Email:"
             iconName="mail"
@@ -58,6 +59,7 @@ export default function RegisterPage({navigation}) {
             }}
           />
           <CustomInput
+            key={1}
             name="password"
             inputTitle="Senha:"
             iconName="unlock"
@@ -68,6 +70,7 @@ export default function RegisterPage({navigation}) {
             rules={{required: 'Campo obrigatório'}}
           />
           <CustomInput
+            key={2}
             name="validatePassword"
             inputTitle="Confirme a senha:"
             iconName="lock1"

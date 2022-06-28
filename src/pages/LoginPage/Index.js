@@ -9,8 +9,8 @@ import {
   Pressable,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import {useForm} from 'react-hook-form';
 
 //Dev components and providers
@@ -29,7 +29,7 @@ export default function LoginPage({navigation}) {
   const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
         style={styles.container}>
@@ -44,6 +44,7 @@ export default function LoginPage({navigation}) {
         {/*Component who wrap the inside part of input field*/}
         <View style={styles.insideComponent_FormWrapper}>
           <CustomInput
+            key={0}
             name="email"
             inputTitle="Email:"
             iconName="mail"
@@ -57,6 +58,7 @@ export default function LoginPage({navigation}) {
             }}
           />
           <CustomInput
+            key={1}
             name="password"
             inputTitle="Senha:"
             iconName="lock1"
